@@ -119,6 +119,33 @@ h1, h2 {
     background-color: #555;
 }
 
+.menu-button.active {
+    background-color: white;
+    color: black;
+    border: 2px solid #333;
+}
+
+.subcategory-button {
+    width: 150px;
+    padding: 10px;
+    margin: 5px;
+    font-size: 16px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.subcategory-button:hover {
+    background-color: #555;
+}
+
+.subcategory-button.active {
+    background-color: white;
+    color: black;
+    border: 2px solid #333;
+}
+
 .cart-item {
     display: flex;
     justify-content: space-between;
@@ -129,6 +156,7 @@ h1, h2 {
 .pagination {
     margin: 20px 0;
 }
+
 .pagination button {
     padding: 10px;
     font-size: 16px;
