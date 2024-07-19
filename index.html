@@ -2,12 +2,16 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.2">
     <title>메가커피 지환점 키오스크</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="menu-selection-screen" class="container">
+    <div id="initial-screen" class="full-screen">
+        <img src="키오스크 첫 화면.png" alt="키오스크 첫 화면" class="full-screen-image" onclick="goToMenuSelection()">
+    </div>
+
+    <div id="menu-selection-screen" class="container" style="display: none;">
         <h1>메뉴판 선택</h1>
         <button class="menu-button" onclick="selectMenu('basic')">기본 메뉴판</button>
         <button class="menu-button" onclick="selectMenu('friendly')">친절한 메뉴판</button>
@@ -26,7 +30,7 @@
             <button class="menu-button" onclick="showMenu('beverages', '에이드')">음료</button>
         </div>
         <div id="subcategory-buttons" style="display: none;">
-            <!-- 서브카테고리 버튼이 여기에 추가됩니다 -->
+            <!-- 서브카테고리 버튼 -->
         </div>
         <h1>주문 메뉴</h1>
         <div class="menu" id="menu">
@@ -50,19 +54,43 @@
     <div id="confirmation-modal" class="modal">
         <div class="modal-content">
             <h2>주문 확인</h2>
-            <div id="confirmation-details"></div>
-            <button onclick="proceedToPayment()">확인</button>
-            <button onclick="closeConfirmationModal()">취소</button>
+            <div class="confirmation-details" id="confirmation-details">
+                <div id="order-summary">
+                    <h3>주문 내역</h3>
+                    <div class="menu-items">
+                        <!-- 메뉴 항목 -->
+                    </div>
+                </div>
+                <div class="total-price-box">
+                    <p>총 금액: <span id="total-price">0</span> 원</p>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button onclick="proceedToPayment()">확인</button>
+                <button class="cancel-button" onclick="closeConfirmationModal()">취소</button>
+            </div>
         </div>
     </div>
 
-    <div id="payment-modal" class="modal">
+    <div id="payment-modal" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h2>결제</h2>
             <p>결제 수단을 선택해주세요:</p>
-            <button onclick="payByCard()">신용카드</button>
-            <button onclick="payByCash()">현금</button>
+            <div class="payment-buttons">
+                <button class="payment-button" onclick="payByCard()">
+                    신용카드
+                    <img src="빈카드.png" alt="신용카드 아이콘" class="icon">
+                </button>
+                <button class="payment-button" onclick="payByCash()">
+                    현금
+                    <img src="빈현금.png" alt="현금 아이콘" class="icon">
+                </button>
+                <button class="payment-button" onclick="payByMobile()">
+                    모바일 결제
+                    <img src="빈 스마트폰.png" alt="모바일 아이콘" class="icon">
+                </button>
+            </div>
         </div>
     </div>
 

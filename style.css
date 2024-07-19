@@ -1,8 +1,10 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #fdfdd0;
     margin: 0;
     padding: 0;
+    width: 859px;
+    height: 1208px;
 }
 
 .container {
@@ -34,15 +36,47 @@ h1, h2 {
     width: 18%;
     text-align: center;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 320px;
 }
 
 .menu-item img {
-    width: 100%;
-    height: auto;
+    width: 150px; 
+    height: 150px;
+    object-fit: contain; 
+}
+
+.menu-item h3 {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.menu-item p {
+    font-size: 1em;
+    margin: 5px 0;
+}
+
+.menu-item button {
+    width: 80%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.menu-item button:hover {
+    background-color: #45a049;
 }
 
 .menu.friendly .menu-item {
-    width: 40%; /* 더 크게 설정 */
+    width: 40%;
+    height: 350px;
     padding: 30px;
     font-size: 1.5em;
 }
@@ -57,6 +91,7 @@ h1, h2 {
 .cart .total {
     text-align: right;
     margin-top: 10px;
+    font-size: 1.5em;
 }
 
 .cart button {
@@ -84,17 +119,92 @@ h1, h2 {
 
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto;
+    margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 40%;
+    height: auto;
+    font-size: 1.6em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.confirmation-details {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#order-summary {
+    background-color: #e6ffe6;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.total-price-box {
+    background-color: #99cc99;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: right;
+}
+
+.total-price-box p {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+}
+
+.menu-items p {
+    margin: 5px 0;
+    font-size: 1.2em;
+}
+
+.total-price {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.modal-content button {
+    width: 300px;
+    padding: 20px;
+    margin: 10px;
+    font-size: 1.5em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+    background-color: #45a049;
+}
+
+.modal-content .cancel-button {
+    background-color: #f44336;
+}
+
+.modal-content .cancel-button:hover {
+    background-color: #e53935;
 }
 
 .close {
     color: #aaa;
-    float: right;
-    font-size: 28px;
+    font-size: 36px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .close:hover,
@@ -109,20 +219,33 @@ h1, h2 {
     padding: 20px;
     margin: 10px;
     font-size: 18px;
-    background-color: #333;
+    background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.start-button:hover, .menu-button:hover {
-    background-color: #555;
+.cart button {
+    width: 140px;
+    padding: 20px;
+    margin: 10px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+}
+
+.start-button:hover, .menu-button:hover, .cart button:hover {
+    background-color: #45a049;
 }
 
 .menu-button.active {
     background-color: white;
     color: black;
-    border: 2px solid #333;
+    border: 2px solid #4CAF50;
 }
 
 .subcategory-button {
@@ -130,20 +253,20 @@ h1, h2 {
     padding: 10px;
     margin: 5px;
     font-size: 16px;
-    background-color: #333;
+    background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
 }
 
 .subcategory-button:hover {
-    background-color: #555;
+    background-color: #45a049;
 }
 
 .subcategory-button.active {
     background-color: white;
     color: black;
-    border: 2px solid #333;
+    border: 2px solid #4CAF50;
 }
 
 .cart-item {
@@ -167,7 +290,7 @@ h1, h2 {
     padding: 10px;
     border: 1px solid #ddd;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    width: 300px;
+    width: 80%;
     margin: auto;
     text-align: left;
 }
@@ -190,4 +313,51 @@ h1, h2 {
 
 .quantity-control span {
     margin: 0 10px;
+}
+
+.full-screen {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.full-screen-image {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+
+.payment-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.payment-button {
+    width: 80%;
+    padding: 40px;
+    font-size: 2em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.payment-button img.icon {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    filter: invert(1);
+}
+
+.payment-button:hover {
+    background-color: #45a049;
 }

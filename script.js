@@ -1,3 +1,24 @@
+function confirmOrder() {
+    const confirmationDetails = document.getElementById('confirmation-details');
+    const menuItems = cart.map(item => `<p>${item.name} x ${item.quantity} - ${item.price * item.quantity} 원</p>`).join('');
+    confirmationDetails.innerHTML = `
+        <div id="order-summary">
+            <h3>주문 내역</h3>
+            <div class="menu-items">
+                ${menuItems}
+            </div>
+        </div>
+        <div class="total-price-box">
+            <p>총 금액: <span id="total-price">${totalPrice}</span> 원</p>
+        </div>
+    `;
+    document.getElementById('confirmation-modal').style.display = 'block';
+}
+
+function closeConfirmationModal() {
+    document.getElementById('confirmation-modal').style.display = 'none';
+}
+
 const menuItems = [
     { name: "ICE 메가리카노", category: "coffee", subcategory: "에스프레소", price: 3000, img: "C:/Users/이소정/Desktop/키오스크/1.png" },
     { name: "ICE 아메리카노", category: "coffee", subcategory: "에스프레소", price: 2000, img: "C:/Users/이소정/Desktop/키오스크/2.png" },
@@ -54,12 +75,21 @@ const categories = {
     beverages: ["에이드", "논-커피 라떼"]
 };
 
+function closeConfirmationModal() {
+    document.getElementById('confirmation-modal').style.display = 'none';
+}
+
 let selectedCategory = '';
 let selectedSubCategory = '';
 let cart = [];
 let totalPrice = 0;
 let currentPage = 1;
 const itemsPerPage = 12;
+
+function goToMenuSelection() {
+    document.getElementById('initial-screen').style.display = 'none';
+    document.getElementById('menu-selection-screen').style.display = 'block';
+}
 
 function selectMenu(menuType) {
     if (menuType === 'friendly') {
@@ -204,20 +234,6 @@ function increaseQuantity(name) {
     updateCart();
 }
 
-function confirmOrder() {
-    const confirmationDetails = document.getElementById('confirmation-details');
-    confirmationDetails.innerHTML = `
-        <h3>주문 내역</h3>
-        ${cart.map(item => `<p>${item.name} x ${item.quantity} - ${item.price * item.quantity} 원</p>`).join('')}
-        <p>총 금액: ${totalPrice} 원</p>
-    `;
-    document.getElementById('confirmation-modal').style.display = 'block';
-}
-
-function closeConfirmationModal() {
-    document.getElementById('confirmation-modal').style.display = 'none';
-}
-
 function proceedToPayment() {
     document.getElementById('confirmation-modal').style.display = 'none';
     document.getElementById('payment-modal').style.display = 'block';
@@ -241,6 +257,12 @@ function payByCash() {
     paymentMethod = '현금';
     alert('현금 결제가 완료되었습니다.');
     showReceiptOption();
+}
+
+function payByMobile() {
+    paymentMethod = '모바일 결제';
+    alert('모바일 결제가 완료되었습니다.');
+    showReceiptOption(); 
 }
 
 function showReceiptOption() {
