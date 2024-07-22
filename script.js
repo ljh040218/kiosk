@@ -1,24 +1,3 @@
-function confirmOrder() {
-    const confirmationDetails = document.getElementById('confirmation-details');
-    const menuItems = cart.map(item => `<p>${item.name} x ${item.quantity} - ${item.price * item.quantity} 원</p>`).join('');
-    confirmationDetails.innerHTML = `
-        <div id="order-summary">
-            <h3>주문 내역</h3>
-            <div class="menu-items">
-                ${menuItems}
-            </div>
-        </div>
-        <div class="total-price-box">
-            <p>총 금액: <span id="total-price">${totalPrice}</span> 원</p>
-        </div>
-    `;
-    document.getElementById('confirmation-modal').style.display = 'block';
-}
-
-function closeConfirmationModal() {
-    document.getElementById('confirmation-modal').style.display = 'none';
-}
-
 const menuItems = [
     { name: "ICE 메가리카노", category: "coffee", subcategory: "에스프레소", price: 3000, img: "C:/Users/이소정/Desktop/키오스크/1.png" },
     { name: "ICE 아메리카노", category: "coffee", subcategory: "에스프레소", price: 2000, img: "C:/Users/이소정/Desktop/키오스크/2.png" },
@@ -70,6 +49,16 @@ const menuItems = [
     { name: "HOT 고구마라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3500, img: "C:/Users/이소정/Desktop/키오스크/48.png" }
 ];
 
+let selectedCategory = '';
+let selectedSubCategory = '';
+let cart = [];
+let totalPrice = 0;
+let currentPage = 1;
+const itemsPerPage = 12;
+const itemsPerPageFriendly = 4; 
+const itemsPerPageDefault = 12;
+
+
 const categories = {
     coffee: ["에스프레소", "라떼"],
     beverages: ["에이드", "논-커피 라떼"]
@@ -79,13 +68,6 @@ function closeConfirmationModal() {
     document.getElementById('confirmation-modal').style.display = 'none';
 }
 
-let selectedCategory = '';
-let selectedSubCategory = '';
-let cart = [];
-let totalPrice = 0;
-let currentPage = 1;
-const itemsPerPage = 12;
-
 function goToMenuSelection() {
     document.getElementById('initial-screen').style.display = 'none';
     document.getElementById('menu-selection-screen').style.display = 'block';
@@ -94,13 +76,29 @@ function goToMenuSelection() {
 // 친절한 메뉴판 함수 friendly 클래스 불러옴
 function selectMenu(menuType) {
     const orderScreen = document.getElementById('order-screen');
+    const startScreen = document.getElementById('start-screen');
+    
     if (menuType === 'friendly') {
         orderScreen.classList.add('friendly');
+        startScreen.classList.add('friendly');
+        
+        const h1 = startScreen.querySelector('h1');
+        const buttons = startScreen.querySelectorAll('.start-button');
+        
+        h1.style.fontSize = '2.5em';
+        buttons.forEach(button => {
+            button.style.width = '300px';
+            button.style.padding = '30px';
+            button.style.fontSize = '2em';
+            button.style.margin = '20px';
+        });
     } else {
         orderScreen.classList.remove('friendly');
+        startScreen.classList.remove('friendly');
     }
+    
     document.getElementById('menu-selection-screen').style.display = 'none';
-    document.getElementById('start-screen').style.display = 'block';
+    startScreen.style.display = 'block';
 }
 
 function startOrder(orderType) {
@@ -144,9 +142,6 @@ function displaySubCategoryButtons() {
     });
     subcategoryButtons.style.display = 'block';
 }
-
-const itemsPerPageFriendly = 4; 
-const itemsPerPageDefault = 12;
 
 function displayMenuItems() {
     const menu = document.getElementById('menu');
@@ -241,6 +236,27 @@ function increaseQuantity(name) {
         cartItem.quantity++;
     }
     updateCart();
+}
+
+function confirmOrder() {
+    const confirmationDetails = document.getElementById('confirmation-details');
+    const menuItems = cart.map(item => `<p>${item.name} x ${item.quantity} - ${item.price * item.quantity} 원</p>`).join('');
+    confirmationDetails.innerHTML = `
+        <div id="order-summary">
+            <h3>주문 내역</h3>
+            <div class="menu-items">
+                ${menuItems}
+            </div>
+        </div>
+        <div class="total-price-box">
+            <p>총 금액: <span id="total-price">${totalPrice}</span> 원</p>
+        </div>
+    `;
+    document.getElementById('confirmation-modal').style.display = 'block';
+}
+
+function closeConfirmationModal() {
+    document.getElementById('confirmation-modal').style.display = 'none';
 }
 
 function proceedToPayment() {

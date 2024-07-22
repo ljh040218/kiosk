@@ -18,6 +18,13 @@ h1, h2 {
     text-align: center;
 }
 
+.menu-description {
+    font-size: 1.8em; 
+    line-height: 1.4; 
+    margin: 20px 0; 
+    font-weight: bold;
+}
+
 .menu, .cart {
     margin: 20px 0;
 }
@@ -374,6 +381,23 @@ h1, h2 {
 }
 
 /* 여기부터 친절한 메뉴판 */
+.friendly #start-screen h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.friendly #start-screen .start-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.friendly #start-screen .start-button:hover {
+    background-color: #45a049;
+}
+
 .friendly #category-buttons .menu-button {
     width: 250px; 
     padding: 20px; 
