@@ -74,13 +74,6 @@ h1, h2 {
     background-color: #45a049;
 }
 
-.menu.friendly .menu-item {
-    width: 40%;
-    height: 350px;
-    padding: 30px;
-    font-size: 1.5em;
-}
-
 .cart {
     background: white;
     padding: 10px;
@@ -276,6 +269,24 @@ h1, h2 {
     margin: 10px 0;
 }
 
+.quantity-control button {
+    background: #ddd; 
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.quantity-control button:first-child:hover,
+.quantity-control button:first-child:active {
+    background: #f44336; 
+    color: white;
+}
+
+.quantity-control span {
+    margin: 0 10px;
+}
+
 .pagination {
     margin: 20px 0;
 }
@@ -360,4 +371,112 @@ h1, h2 {
 
 .payment-button:hover {
     background-color: #45a049;
+}
+
+/* 여기부터 친절한 메뉴판 */
+.friendly #category-buttons .menu-button {
+    width: 250px; 
+    padding: 20px; 
+    font-size: 2.0em; 
+}
+
+.friendly #subcategory-buttons .subcategory-button {
+    width: 180px; 
+    padding: 20px; 
+    font-size: 1.5em; 
+}
+
+.friendly .menu-item {
+    width: 40%; 
+    height: auto; 
+    padding: 20px;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.friendly .menu-item img {
+    width: 200px; 
+    height: 200px;
+    margin-bottom: 20px; 
+}
+
+.friendly .menu-item h3 {
+    font-size: 1.6em;
+    margin-bottom: 10px; 
+}
+
+.friendly .menu-item p {
+    font-size: 1.5em; 
+    margin-bottom: 10px; 
+}
+
+.friendly .menu-item button {
+    width: 100%;
+    padding: 20px;
+    font-size: 1.5em; 
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    margin: 0 10px;
+    cursor: pointer; 
+}
+
+
+.friendly .cart {
+    font-size: 1.6em;
+}
+
+.friendly .cart button#checkout-button {
+    white-space: nowrap; 
+    font-size: 1.8em; 
+    padding: 20px 40px; 
+    width: auto;
+    max-width: 100%;
+    margin-top: 20px;
+    background-color: #4CAF50; 
+    color: white; 
+    border: none; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+}
+
+.friendly .cart button#checkout-button:hover {
+    background-color: #45a049; 
+}
+
+.friendly .cart h2, 
+.friendly .cart .total, 
+.friendly .cart button {
+    font-size: 1.5em; 
+}
+
+.friendly .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.friendly .cart-item h3 {
+    flex: 1;
+    text-align: left;
+}
+
+.friendly .cart-item p {
+    flex: 1;
+    text-align: right;
 }

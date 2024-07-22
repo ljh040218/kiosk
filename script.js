@@ -91,11 +91,13 @@ function goToMenuSelection() {
     document.getElementById('menu-selection-screen').style.display = 'block';
 }
 
+// 친절한 메뉴판 함수 friendly 클래스 불러옴
 function selectMenu(menuType) {
+    const orderScreen = document.getElementById('order-screen');
     if (menuType === 'friendly') {
-        document.getElementById('order-screen').classList.add('friendly');
+        orderScreen.classList.add('friendly');
     } else {
-        document.getElementById('order-screen').classList.remove('friendly');
+        orderScreen.classList.remove('friendly');
     }
     document.getElementById('menu-selection-screen').style.display = 'none';
     document.getElementById('start-screen').style.display = 'block';
@@ -143,9 +145,14 @@ function displaySubCategoryButtons() {
     subcategoryButtons.style.display = 'block';
 }
 
+const itemsPerPageFriendly = 4; 
+const itemsPerPageDefault = 12;
+
 function displayMenuItems() {
     const menu = document.getElementById('menu');
     menu.innerHTML = '';
+    const isFriendly = document.getElementById('order-screen').classList.contains('friendly');
+    const itemsPerPage = isFriendly ? itemsPerPageFriendly : itemsPerPageDefault;
     const start = (currentPage - 1) * itemsPerPage;
     const filteredItems = menuItems.filter(item => item.category === selectedCategory && item.subcategory === selectedSubCategory);
     const itemsToShow = filteredItems.slice(start, start + itemsPerPage);
@@ -167,6 +174,8 @@ function displayMenuItems() {
 }
 
 function nextPage() {
+    const isFriendly = document.getElementById('order-screen').classList.contains('friendly');
+    const itemsPerPage = isFriendly ? itemsPerPageFriendly : itemsPerPageDefault;
     const filteredItems = menuItems.filter(item => item.category === selectedCategory && item.subcategory === selectedSubCategory);
     if (currentPage * itemsPerPage < filteredItems.length) {
         currentPage++;
@@ -201,7 +210,7 @@ function updateCart() {
         cartItem.classList.add('cart-item');
         cartItem.innerHTML = `
             <h3>${item.name}</h3>
-            <p>${item.price} 원 x ${item.quantity}</p>
+            <p>${item.price} 원</p>
             <div class="quantity-control">
                 <button onclick="decreaseQuantity('${item.name}')">-</button>
                 <span>${item.quantity}</span>
