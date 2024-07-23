@@ -1,10 +1,26 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #fdfdd0;
+body, html {
     margin: 0;
     padding: 0;
-    width: 859px;
-    height: 1208px;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #FAF3C0; /* 노란 배경 색상 */
+}
+
+.full-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh; 
+}
+
+.full-screen-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    width: auto; 
+    height: auto; 
 }
 
 .container {
@@ -88,6 +104,14 @@ h1, h2 {
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+    padding: 5px;
+}
+
 .cart .total {
     text-align: right;
     margin-top: 10px;
@@ -101,6 +125,18 @@ h1, h2 {
     color: white;
     border: none;
     cursor: pointer;
+}
+
+.cart button {
+    width: 140px;
+    padding: 20px;
+    margin: 10px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.1s ease;
 }
 
 .modal {
@@ -226,18 +262,6 @@ h1, h2 {
     transition: background-color 0.3s ease;
 }
 
-.cart button {
-    width: 140px;
-    padding: 20px;
-    margin: 10px;
-    font-size: 18px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.1s ease;
-}
-
 .start-button:hover, .menu-button:hover, .cart button:hover {
     background-color: #45a049;
 }
@@ -269,11 +293,9 @@ h1, h2 {
     border: 2px solid #4CAF50;
 }
 
-.cart-item {
+.quantity-control {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin: 10px 0;
 }
 
 .quantity-control button {
@@ -291,7 +313,7 @@ h1, h2 {
 }
 
 .quantity-control span {
-    margin: 0 10px;
+    margin: 0 5px;
 }
 
 .pagination {
@@ -315,36 +337,6 @@ h1, h2 {
 
 .receipt h2 {
     text-align: center;
-}
-
-.quantity-control {
-    display: flex;
-    align-items: center;
-}
-
-.quantity-control button {
-    background: #ddd;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.quantity-control span {
-    margin: 0 10px;
-}
-
-.full-screen {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.full-screen-image {
-    width: 100%;
-    height: auto;
-    cursor: pointer;
 }
 
 .payment-buttons {
