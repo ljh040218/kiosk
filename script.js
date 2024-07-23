@@ -83,14 +83,15 @@ function selectMenu(menuType) {
         startScreen.classList.add('friendly');
         
         const h1 = startScreen.querySelector('h1');
-        const buttons = startScreen.querySelectorAll('.start-button');
-        
         h1.style.fontSize = '2.5em';
+
+        // 간편 주문 모드에서 버튼 크기 조정
+        const buttons = startScreen.querySelectorAll('.order-button');
         buttons.forEach(button => {
             button.style.width = '300px';
             button.style.padding = '30px';
             button.style.fontSize = '2em';
-            button.style.margin = '20px';
+            button.style.margin = '20px auto';
         });
     } else {
         orderScreen.classList.remove('friendly');
@@ -207,9 +208,9 @@ function updateCart() {
             <h3>${item.name}</h3>
             <p>${item.price} 원</p>
             <div class="quantity-control">
-                <button onclick="decreaseQuantity('${item.name}')">-</button>
+                <button class="decrease-button" onclick="decreaseQuantity('${item.name}')">-</button>
                 <span>${item.quantity}</span>
-                <button onclick="increaseQuantity('${item.name}')">+</button>
+                <button class="increase-button" onclick="increaseQuantity('${item.name}')">+</button>
             </div>
         `;
         cartItems.appendChild(cartItem);

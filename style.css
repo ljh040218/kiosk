@@ -4,8 +4,15 @@ body, html {
     width: 100%;
     height: 100%;
     font-family: Arial, sans-serif;
-    background-color: #FAF3C0; /* 노란 배경 색상 */
+    background-color: #8acaa4; /* 노랑색 #FAF3C0에서 변경 */
 }
+
+  .container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    text-align: center;
+  }
 
 .full-screen {
     display: flex;
@@ -23,23 +30,98 @@ body, html {
     height: auto; 
 }
 
-.container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
-    text-align: center;
-}
-
 h1, h2 {
     text-align: center;
 }
 
+/* 주문 방식 선택, 포장 매장 선택하는 부분 중앙 정렬 */
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: calc(100vh - 50vh); 
+    margin-top: 25vh; 
+    text-align: center;
+  }
+
+/* 버튼 세로 정렬로 수정 */
+  .order-button {
+      display: block; 
+      margin-bottom: 20px; 
+      width: 200px;
+      padding: 20px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-align: center; 
+      margin-left: auto; 
+      margin-right: auto; 
+  }
+  
+  .order-button:hover {
+      background-color: #45a049;
+  }
+  
 .menu-description {
     font-size: 1.8em; 
     line-height: 1.4; 
     margin: 20px 0; 
     font-weight: bold;
 }
+
+
+.menu-button {
+    width: 200px;
+    padding: 20px;
+    margin: 10px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.menu-button:hover, .cart button:hover {
+    background-color: #45a049;
+}
+
+.menu-button.active {
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+}
+
+.menu-items p {
+    margin: 5px 0;
+    font-size: 1.2em;
+}
+
+.subcategory-button {
+    width: 150px;
+    padding: 10px;
+    margin: 5px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.subcategory-button:hover {
+    background-color: #45a049;
+}
+
+.subcategory-button.active {
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+}
+
 
 .menu, .cart {
     margin: 20px 0;
@@ -110,7 +192,51 @@ h1, h2 {
     align-items: center;
     margin: 5px 0;
     padding: 5px;
+    gap: 5px; 
 }
+
+.cart-item h3, .cart-item p, .quantity-control {
+    flex: 1; 
+    text-align: center; 
+    margin: 0; 
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.quantity-control .decrease-button {
+    background: #ddd; 
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.quantity-control .decrease-button:hover {
+    background: #e74c3c; 
+    color: white;
+}
+
+.quantity-control .increase-button {
+    background: #ddd; 
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.quantity-control .increase-button:hover {
+    background: #45a049; 
+    color: white;
+}
+
+.quantity-control span {
+    margin: 0 5px;
+}
+
 
 .cart .total {
     text-align: right;
@@ -119,24 +245,16 @@ h1, h2 {
 }
 
 .cart button {
-    width: 100%;
-    padding: 10px;
-    background: #333;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.cart button {
     width: 140px;
     padding: 20px;
-    margin: 10px;
+    margin: 10px auto; 
+    display: block; 
     font-size: 18px;
     background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
-    transition: background-color 0.1s ease;
+    transition: background-color 0.3s ease;
 }
 
 .modal {
@@ -194,11 +312,6 @@ h1, h2 {
     color: #333;
 }
 
-.menu-items p {
-    margin: 5px 0;
-    font-size: 1.2em;
-}
-
 .total-price {
     font-size: 1.5em;
     font-weight: bold;
@@ -248,72 +361,6 @@ h1, h2 {
     color: black;
     text-decoration: none;
     cursor: pointer;
-}
-
-.start-button, .menu-button {
-    width: 200px;
-    padding: 20px;
-    margin: 10px;
-    font-size: 18px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.start-button:hover, .menu-button:hover, .cart button:hover {
-    background-color: #45a049;
-}
-
-.menu-button.active {
-    background-color: white;
-    color: black;
-    border: 2px solid #4CAF50;
-}
-
-.subcategory-button {
-    width: 150px;
-    padding: 10px;
-    margin: 5px;
-    font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.subcategory-button:hover {
-    background-color: #45a049;
-}
-
-.subcategory-button.active {
-    background-color: white;
-    color: black;
-    border: 2px solid #4CAF50;
-}
-
-.quantity-control {
-    display: flex;
-    align-items: center;
-}
-
-.quantity-control button {
-    background: #ddd; 
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.quantity-control button:first-child:hover,
-.quantity-control button:first-child:active {
-    background: #f44336; 
-    color: white;
-}
-
-.quantity-control span {
-    margin: 0 5px;
 }
 
 .pagination {
@@ -378,15 +425,21 @@ h1, h2 {
     margin-bottom: 20px;
 }
 
-.friendly #start-screen .start-button {
+.friendly #start-screen .order-button {
     background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: 300px; 
+    padding: 30px; 
+    font-size: 2em; 
+    margin: 20px auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.friendly #start-screen .start-button:hover {
+.friendly #start-screen .order-button:hover {
     background-color: #45a049;
 }
 
@@ -479,20 +532,21 @@ h1, h2 {
     font-size: 1.5em; 
 }
 
+
 .friendly .cart-item {
+    gap: 5px; 
+    font-size: 1.5em; 
+}
+
+.friendly .cart-item h3, .friendly .cart-item p, .friendly .quantity-control {
+    flex: 1; 
+    text-align: center; 
+    margin: 0; 
+}
+
+.friendly .quantity-control {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin: 10px 0;
-    width: 100%;
-}
-
-.friendly .cart-item h3 {
-    flex: 1;
-    text-align: left;
-}
-
-.friendly .cart-item p {
-    flex: 1;
-    text-align: right;
+    gap: 2px; 
+    justify-content: center; 
 }
