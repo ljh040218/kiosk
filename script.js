@@ -57,6 +57,9 @@ let currentPage = 1;
 const itemsPerPage = 12;
 const itemsPerPageFriendly = 4; 
 const itemsPerPageDefault = 12;
+let selectedMenuItem = null;
+let selectedOptions = [];
+let quantity = 1;
 
 
 const categories = {
@@ -187,20 +190,35 @@ function prevPage() {
 }
 
 function addToCart(name, price) {
-    const cartItem = cart.find(item => item.name === name);
-    if (cartItem) {
-        cartItem.quantity++;
-    } else {
-        cart.push({ name, price, quantity: 1 });
-    }
-    updateCart();
+    const menuItem = menuItems.find(item => item.name === name);
+    showOptionsScreen(menuItem);
+}
+
+function showOptionsScreen(menuItem) {
+    selectedMenuItem = menuItem;
+    selectedOptions = [];
+    quantity = 1;
+    document.getElementById('quantity').innerText = quantity;
+
+    const optionsScreen = document.getElementById('options-selection-screen');
+    const blurBackground = document.getElementById('blur-background');
+    optionsScreen.style.display = 'block';
+    blurBackground.style.display = 'block';
+    updateTotalPriceWithOptions();
+}
+
+function updateTotalPriceWithOptions() {
+    const basePrice = selectedMenuItem.price;
+    const optionsPrice = selectedOptions.reduce((total, option) => total + option.price, 0);
+    const totalPriceWithOptions = (basePrice + optionsPrice) * quantity;
+    document.getElementById('total-price-with-options').innerText = totalPriceWithOptions;
 }
 
 function updateCart() {
     const cartItems = document.getElementById('cart-items');
     cartItems.innerHTML = '';
-    totalPrice = 0;
-    cart.forEach(item => {
+    let totalPrice = 0;
+    cart.forEach((item, index) => {
         totalPrice += item.price * item.quantity;
         const cartItem = document.createElement('div');
         cartItem.classList.add('cart-item');
@@ -208,9 +226,9 @@ function updateCart() {
             <h3>${item.name}</h3>
             <p>${item.price} 원</p>
             <div class="quantity-control">
-                <button class="decrease-button" onclick="decreaseQuantity('${item.name}')">-</button>
+                <button class="decrease-button" onclick="decreaseQuantity(${index})">-</button>
                 <span>${item.quantity}</span>
-                <button class="increase-button" onclick="increaseQuantity('${item.name}')">+</button>
+                <button class="increase-button" onclick="increaseQuantity(${index})">+</button>
             </div>
         `;
         cartItems.appendChild(cartItem);
@@ -219,29 +237,78 @@ function updateCart() {
     document.getElementById('checkout-button').style.display = cart.length > 0 ? 'block' : 'none';
 }
 
-function decreaseQuantity(name) {
-    const cartItem = cart.find(item => item.name === name);
-    if (cartItem) {
-        if (cartItem.quantity > 1) {
-            cartItem.quantity--;
-        } else {
-            cart = cart.filter(item => item.name !== name);
+function decreaseQuantity(index) {
+    if (index !== undefined) {
+        // 장바구니 아이템 수량 감소
+        if (cart[index].quantity > 1) {
+            cart[index].quantity--;
+            updateCart();
+        }
+    } else {
+        // 옵션 선택 화면에서의 수량 감소
+        if (quantity > 1) {
+            quantity--;
+            document.getElementById('quantity').innerText = quantity;
+            updateTotalPriceWithOptions();
         }
     }
-    updateCart();
 }
 
-function increaseQuantity(name) {
-    const cartItem = cart.find(item => item.name === name);
-    if (cartItem) {
-        cartItem.quantity++;
+function increaseQuantity(index) {
+    if (index !== undefined) {
+        // 장바구니 아이템 수량 증가
+        cart[index].quantity++;
+        updateCart();
+    } else {
+        // 옵션 선택 화면에서의 수량 증가
+        quantity++;
+        document.getElementById('quantity').innerText = quantity;
+        updateTotalPriceWithOptions();
+    }
+}
+
+function selectOption(optionName, optionPrice) {
+    const optionIndex = selectedOptions.findIndex(option => option.name === optionName);
+    if (optionIndex > -1) {
+        selectedOptions.splice(optionIndex, 1);
+    } else {
+        selectedOptions.push({ name: optionName, price: optionPrice });
+    }
+    updateTotalPriceWithOptions();
+}
+
+function addToCartWithOptions() {
+    const totalPriceWithOptions = selectedOptions.reduce((total, option) => total + option.price, selectedMenuItem.price) * quantity;
+    const cartItemWithOptions = {
+        ...selectedMenuItem,
+        price: totalPriceWithOptions,
+        options: selectedOptions,
+        quantity: quantity
+    };
+
+    const existingCartItem = cart.find(item => item.name === cartItemWithOptions.name && JSON.stringify(item.options) === JSON.stringify(cartItemWithOptions.options));
+    if (existingCartItem) {
+        existingCartItem.quantity += quantity;
+    } else {
+        cart.push(cartItemWithOptions);
     }
     updateCart();
+
+    document.getElementById('options-selection-screen').style.display = 'none';
+    document.getElementById('blur-background').style.display = 'none';
+}
+
+function closeOptionsScreen() {
+    document.getElementById('options-selection-screen').style.display = 'none';
+    document.getElementById('blur-background').style.display = 'none';
 }
 
 function confirmOrder() {
     const confirmationDetails = document.getElementById('confirmation-details');
-    const menuItems = cart.map(item => `<p>${item.name} x ${item.quantity} - ${item.price * item.quantity} 원</p>`).join('');
+    const menuItems = cart.map(item => `
+        <p>${item.name} x ${item.quantity} - ${item.price * item.quantity} 원</p>
+        ${item.options.length > 0 ? `<ul>${item.options.map(option => `<li>${option.name} +${option.price} 원</li>`).join('')}</ul>` : ''}
+    `).join('');
     confirmationDetails.innerHTML = `
         <div id="order-summary">
             <h3>주문 내역</h3>
@@ -255,6 +322,7 @@ function confirmOrder() {
     `;
     document.getElementById('confirmation-modal').style.display = 'block';
 }
+
 
 function closeConfirmationModal() {
     document.getElementById('confirmation-modal').style.display = 'none';
@@ -317,13 +385,18 @@ function generateReceipt(show = true) {
 
     orderNumberEl.innerText = orderNumber;
 
+    const receiptItems = cart.map(item => `
+        <p>${item.name} x ${item.quantity} - ${item.price * item.quantity} 원</p>
+        ${item.options.length > 0 ? `<ul>${item.options.map(option => `<li>${option.name} +${option.price} 원</li>`).join('')}</ul>` : ''}
+    `).join('');
+
     receiptDetails.innerHTML = `
-        <p>메가커피 지환점</p>
+        <p>메가커피 성신여대점</p>
         <p>주문 번호: ${orderNumber}</p>
         <p>결제 날짜: ${date}</p>
         <p>결제 시각: ${time}</p>
         <h3>주문 내역</h3>
-        ${cart.map(item => `<p>${item.name} x ${item.quantity} - ${item.price * item.quantity} 원</p>`).join('')}
+        ${receiptItems}
         <p>총 금액: ${totalPrice} 원</p>
         <p>결제 방식: ${paymentMethod}</p>
     `;

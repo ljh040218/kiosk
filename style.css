@@ -46,25 +46,25 @@ h1, h2 {
   }
 
 /* 버튼 세로 정렬로 수정 */
-  .order-button {
-      display: block; 
-      margin-bottom: 20px; 
-      width: 200px;
-      padding: 20px;
-      font-size: 18px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      text-align: center; 
-      margin-left: auto; 
-      margin-right: auto; 
-  }
+.order-button {
+    display: block; 
+    margin-bottom: 20px; 
+    width: 200px;
+    padding: 20px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center; 
+    margin-left: auto; 
+    margin-right: auto; 
+}
   
-  .order-button:hover {
-      background-color: #45a049;
-  }
+.order-button:hover {
+    background-color: #45a049;
+}
   
 .menu-description {
     font-size: 1.8em; 
@@ -72,7 +72,6 @@ h1, h2 {
     margin: 20px 0; 
     font-weight: bold;
 }
-
 
 .menu-button {
     width: 200px;
@@ -179,6 +178,134 @@ h1, h2 {
     background-color: #45a049;
 }
 
+#options-selection-screen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    text-align: center;
+    width: 90%;
+    max-width: 800px;
+    height: 90%;
+    overflow-y: auto;
+}
+
+.price {
+    background-color: #e6ffe6; 
+    padding: 10px 20px; 
+    border-radius: 10px;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.options-header {
+    background-color: #8acaa4;
+    padding: 20px;
+    text-align: center;
+    color: black;
+}
+
+.options-header h1, .options-header p {
+    margin: 0;
+    padding: 0;
+}
+
+.option-button {
+    flex: 1;
+    padding: 20px;
+    margin: 10px;
+    font-size: 1.5em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.option-button:hover {
+    background-color: #45a049;
+}
+
+.option-button.cancel-button {
+    background-color: #f44336;
+}
+
+.option-button.cancel-button:hover {
+    background-color: #e53935;
+}
+
+input[type="radio"], input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.5);
+    margin-bottom: 10px;
+}
+
+.quantity {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.quantity-control span {
+    margin: 0 10px;
+    font-size: 20px;
+}
+
+.quantity-control .decrease-button, .quantity-control .increase-button {
+    background: #ddd; 
+    border: none;
+    padding: 15px 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1.5em;
+}
+
+.quantity-control .decrease-button:hover {
+    background: #e74c3c; 
+    color: white;
+}
+
+.quantity-control .increase-button:hover {
+    background: #45a049; 
+    color: white;
+}
+
+#blur-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    z-index: 500;
+    display: none;
+}
+
 .cart {
     background: white;
     padding: 10px;
@@ -200,43 +327,6 @@ h1, h2 {
     text-align: center; 
     margin: 0; 
 }
-
-.quantity-control {
-    display: flex;
-    align-items: center;
-    gap: 2px;
-}
-
-.quantity-control .decrease-button {
-    background: #ddd; 
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.quantity-control .decrease-button:hover {
-    background: #e74c3c; 
-    color: white;
-}
-
-.quantity-control .increase-button {
-    background: #ddd; 
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.quantity-control .increase-button:hover {
-    background: #45a049; 
-    color: white;
-}
-
-.quantity-control span {
-    margin: 0 5px;
-}
-
 
 .cart .total {
     text-align: right;
@@ -299,7 +389,7 @@ h1, h2 {
 }
 
 .total-price-box {
-    background-color: #99cc99;
+    background-color: #8acaa4;
     padding: 10px;
     border-radius: 10px;
     margin-top: 20px;

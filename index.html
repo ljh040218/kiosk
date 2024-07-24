@@ -36,14 +36,14 @@
         <div class="menu" id="menu">
             <!-- 메뉴 아이템 -->
         </div>
-
+    
         <!-- 친절한 메뉴판 크기 때문에 페이지 기능 추가함 -->
         <div class="pagination" id="pagination" style="display: none;">
             <button onclick="prevPage()">이전</button>
             <span id="page-number"></span>
             <button onclick="nextPage()">다음</button>
         </div> 
-
+    
         <div class="cart">
             <h2>장바구니</h2>
             <div id="cart-items"></div>
@@ -52,7 +52,49 @@
             </div>
             <button id="checkout-button" onclick="confirmOrder()" style="display: none;">결제하기</button>
         </div>
-    </div>
+        
+        <!-- 옵션 선택 섹션 -->
+        <div id="options-selection-screen" class="options" style="display: none;">
+            <div class="options-header">
+                <h1>옵션 선택</h1>
+                <p>해당 제품의 옵션을 선택해주세요</p>
+            </div>
+            <div class="options">
+                <h2>텀블러 선택</h2>
+                <label><input type="radio" name="misc" onclick="selectOption('개인 텀블러 사용', 0)"> 개인 텀블러 사용</label>
+        
+                <h2>샷 추가</h2>
+                <label><input type="radio" name="shot" onclick="selectOption('연하게', 0)"> 연하게 +0원</label>
+                <label><input type="radio" name="shot" onclick="selectOption('샷 추가', 500)"> 샷 추가 +500원</label>
+                <label><input type="radio" name="shot" onclick="selectOption('2샷 추가', 1000)"> 2샷 추가 +1000원</label>
+                
+                <h2>우유 선택</h2>
+                <label><input type="radio" name="milk" onclick="selectOption('일반 우유', 0)"> 일반 우유 +0원</label>
+                <label><input type="radio" name="milk" onclick="selectOption('저지방 우유 변경', 500)"> 저지방 우유 변경 +500원</label>
+                <label><input type="radio" name="milk" onclick="selectOption('두유 변경', 500)"> 두유 변경 +500원</label>
+        
+                <h2>당도 추가</h2>
+                <label><input type="checkbox" name="sweet" onclick="selectOption('연유 추가', 500)"> 연유 추가 +500원</label>
+                <label><input type="checkbox" name="sweet" onclick="selectOption('카라멜 시럽 추가', 500)"> 카라멜 시럽 추가 +500원</label>
+                <label><input type="checkbox" name="sweet" onclick="selectOption('휘핑 추가', 500)"> 휘핑 추가 +500원</label>
+                
+            </div>
+            <div class="quantity-price">
+                <div class="quantity-control">
+                    <button class="decrease-button" onclick="decreaseQuantity()">-</button>
+                    <span id="quantity">1</span>
+                    <button class="increase-button" onclick="increaseQuantity()">+</button>
+                </div>
+                <div class="price">
+                    <span>주문 금액: </span><span id="total-price-with-options">0</span> 원
+                </div>
+            </div>
+            <div class="buttons">
+                <button class="option-button" onclick="addToCartWithOptions()">메뉴 담기</button>
+                <button class="option-button cancel-button" onclick="closeOptionsScreen()">취소</button>
+            </div>
+        </div>
+
 
     <div id="confirmation-modal" class="modal">
         <div class="modal-content">
@@ -118,7 +160,7 @@
             <button onclick="completeOrder()">확인</button>
         </div>
     </div>
-
+    <div id="blur-background"></div>
     <script src="script.js"></script>
 </body>
 </html>
