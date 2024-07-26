@@ -80,11 +80,14 @@ function goToMenuSelection() {
 function selectMenu(menuType) {
     const orderScreen = document.getElementById('order-screen');
     const startScreen = document.getElementById('start-screen');
+    const voiceButton = document.getElementById('start-voice-button');
     
     if (menuType === 'friendly') {
+        isFriendlyMode = true;  // 간편 주문 모드 활성화
         orderScreen.classList.add('friendly');
         startScreen.classList.add('friendly');
-        
+        voiceButton.style.display = 'block'; // 음성 인식 버튼 표시
+
         const h1 = startScreen.querySelector('h1');
         h1.style.fontSize = '2.5em';
 
@@ -97,6 +100,11 @@ function selectMenu(menuType) {
             button.style.margin = '20px auto';
         });
     } else {
+        isFriendlyMode = false;  // 간편 주문 모드 비활성화
+        voiceButton.style.display = 'none'; // 음성 인식 버튼 숨기기
+        if (recognition) {
+            recognition.stop();  // 음성 인식 중지
+        }
         orderScreen.classList.remove('friendly');
         startScreen.classList.remove('friendly');
     }
@@ -106,6 +114,9 @@ function selectMenu(menuType) {
 }
 
 function startOrder(orderType) {
+    if (isFriendlyMode) {
+        startVoiceRecognition();  // 간편 주문 모드에서만 음성 인식 시작
+    }
     document.getElementById('start-screen').style.display = 'none';
     document.getElementById('order-screen').style.display = 'block';
     showMenu('coffee', '에스프레소');
@@ -118,6 +129,9 @@ function showMenu(category, subcategory) {
     displayCategoryButtons();
     displaySubCategoryButtons();
     displayMenuItems();
+    if (isFriendlyMode) {
+        startVoiceRecognition();  // 간편 주문 모드에서만 음성 인식 시작
+    }
 }
 
 function displayCategoryButtons() {
@@ -191,7 +205,11 @@ function prevPage() {
 
 function addToCart(name, price) {
     const menuItem = menuItems.find(item => item.name === name);
-    showOptionsScreen(menuItem);
+    if (menuItem) {
+        showOptionsScreen(menuItem);
+    } else {
+        console.error('메뉴 아이템을 찾을 수 없습니다:', name);
+    }
 }
 
 function showOptionsScreen(menuItem) {
@@ -206,6 +224,7 @@ function showOptionsScreen(menuItem) {
     blurBackground.style.display = 'block';
     updateTotalPriceWithOptions();
 }
+
 
 function updateTotalPriceWithOptions() {
     const basePrice = selectedMenuItem.price;
@@ -427,4 +446,25 @@ function resetCart() {
     closeModal();
     closeReceiptModal();
     document.getElementById('receipt').style.display = 'none';
+}
+
+function resetOrder() {
+    selectedCategory = '';
+    selectedSubCategory = '';
+    cart = [];
+    totalPrice = 0;
+    currentPage = 1;
+    selectedMenuItem = null;
+    selectedOptions = [];
+    quantity = 1;
+    document.getElementById('cart-items').innerHTML = '';
+    document.getElementById('total-price').innerText = '0';
+    document.getElementById('checkout-button').style.display = 'none';
+    document.getElementById('initial-screen').style.display = 'block';
+    document.getElementById('order-screen').style.display = 'none';
+    document.getElementById('menu-selection-screen').style.display = 'none';
+    document.getElementById('start-screen').style.display = 'none';
+    if (recognition) {
+        recognition.stop();
+    }
 }
