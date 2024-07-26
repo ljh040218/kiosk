@@ -67,6 +67,10 @@ const categories = {
     beverages: ["에이드", "논-커피 라떼"]
 };
 
+function goToHome() {
+    window.location.href = 'index.html'; // 첫 화면으로 이동
+ }
+
 function closeConfirmationModal() {
     document.getElementById('confirmation-modal').style.display = 'none';
 }
