@@ -216,20 +216,6 @@ function addToCart(name, price) {
     }
 }
 
-function showOptionsScreen(menuItem) {
-    selectedMenuItem = menuItem;
-    selectedOptions = [];
-    quantity = 1;
-    document.getElementById('quantity').innerText = quantity;
-
-    const optionsScreen = document.getElementById('options-selection-screen');
-    const blurBackground = document.getElementById('blur-background');
-    optionsScreen.style.display = 'block';
-    blurBackground.style.display = 'block';
-    updateTotalPriceWithOptions();
-}
-
-
 function updateTotalPriceWithOptions() {
     const basePrice = selectedMenuItem.price;
     const optionsPrice = selectedOptions.reduce((total, option) => total + option.price, 0);
@@ -246,6 +232,7 @@ function updateCart() {
         const cartItem = document.createElement('div');
         cartItem.classList.add('cart-item');
         cartItem.innerHTML = `
+            <button class="delete-button" onclick="removeFromCart(${index})">x</button>
             <h3>${item.name}</h3>
             <p>${item.price} 원</p>
             <div class="quantity-control">
@@ -259,6 +246,7 @@ function updateCart() {
     document.getElementById('total-price').innerText = totalPrice;
     document.getElementById('checkout-button').style.display = cart.length > 0 ? 'block' : 'none';
 }
+
 
 function decreaseQuantity(index) {
     if (index !== undefined) {
@@ -290,13 +278,42 @@ function increaseQuantity(index) {
     }
 }
 
-function selectOption(optionName, optionPrice) {
-    const optionIndex = selectedOptions.findIndex(option => option.name === optionName);
-    if (optionIndex > -1) {
-        selectedOptions.splice(optionIndex, 1);
+function removeFromCart(index) {
+    cart.splice(index, 1); 
+    updateCart();
+}
+
+function resetOptionButtons() {
+    const checkBoxes = document.querySelectorAll('#options-selection-screen input[type="checkbox"]');
+    checkBoxes.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+}
+
+function selectOption(option, price, event) {
+    const checkbox = event.target;
+    if (checkbox.checked) {
+        selectedOptions.push({ name: option, price }); 
     } else {
-        selectedOptions.push({ name: optionName, price: optionPrice });
+        const optionIndex = selectedOptions.findIndex(selectedOption => selectedOption.name === option);
+        if (optionIndex > -1) {
+            selectedOptions.splice(optionIndex, 1);
+        }
     }
+    updateTotalPriceWithOptions();
+}
+
+function showOptionsScreen(menuItem) {
+    selectedMenuItem = menuItem;
+    selectedOptions = [];
+    quantity = 1;
+    document.getElementById('quantity').innerText = quantity;
+
+    resetOptionButtons();
+    const optionsScreen = document.getElementById('options-selection-screen');
+    const blurBackground = document.getElementById('blur-background');
+    optionsScreen.style.display = 'block';
+    blurBackground.style.display = 'block';
     updateTotalPriceWithOptions();
 }
 
@@ -315,6 +332,9 @@ function addToCartWithOptions() {
     } else {
         cart.push(cartItemWithOptions);
     }
+
+    updateTotalPrice();
+
     updateCart();
 
     document.getElementById('options-selection-screen').style.display = 'none';
@@ -322,8 +342,16 @@ function addToCartWithOptions() {
 }
 
 function closeOptionsScreen() {
-    document.getElementById('options-selection-screen').style.display = 'none';
-    document.getElementById('blur-background').style.display = 'none';
+    const optionsScreen = document.getElementById('options-selection-screen');
+    const blurBackground = document.getElementById('blur-background');
+    optionsScreen.style.display = 'none';
+    blurBackground.style.display = 'none';
+    resetOptionButtons();
+}
+
+function updateTotalPrice() {
+    totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    document.getElementById('total-price').innerText = totalPrice;
 }
 
 function confirmOrder() {
@@ -332,6 +360,10 @@ function confirmOrder() {
         <p>${item.name} x ${item.quantity} - ${item.price * item.quantity} 원</p>
         ${item.options.length > 0 ? `<ul>${item.options.map(option => `<li>${option.name} +${option.price} 원</li>`).join('')}</ul>` : ''}
     `).join('');
+    
+    const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    document.getElementById('total-price').innerText = totalPrice;
+
     confirmationDetails.innerHTML = `
         <div id="order-summary">
             <h3>주문 내역</h3>
@@ -346,7 +378,6 @@ function confirmOrder() {
     document.getElementById('confirmation-modal').style.display = 'block';
 }
 
-
 function closeConfirmationModal() {
     document.getElementById('confirmation-modal').style.display = 'none';
 }
@@ -358,10 +389,6 @@ function proceedToPayment() {
 
 function closeModal() {
     document.getElementById('payment-modal').style.display = 'none';
-}
-
-function closeReceiptModal() {
-    document.getElementById('receipt-modal').style.display = 'none';
 }
 
 function payByCard() {
@@ -382,36 +409,66 @@ function payByMobile() {
     showReceiptOption(); 
 }
 
+function closeReceiptModal() {
+    document.getElementById('receipt-modal').style.display = 'none';
+}
+
 function showReceiptOption() {
     document.getElementById('payment-modal').style.display = 'none';
     document.getElementById('receipt-modal').style.display = 'block';
 }
 
 function printReceipt() {
+    generateReceipt(); 
+    document.getElementById('receipt').style.display = 'block'; 
+    document.getElementById('completion-modal').style.display = 'block';
     document.getElementById('receipt-modal').style.display = 'none';
-    generateReceipt();
-    showCompletionModal(true);
+
+    // 일정 시간 후에 초기 화면으로 돌아가기
+    setTimeout(() => {
+        document.getElementById('completion-modal').style.display = 'none';
+        document.getElementById('order-screen').style.display = 'none';
+        document.getElementById('initial-screen').style.display = 'block';
+    }, 5000); // 5초 후에 초기 화면으로 이동
 }
 
 function noReceipt() {
-    generateReceipt(false); // 영수증 생성, 표시하지 않음
-    showCompletionModal(false);
-}
+    document.getElementById('completion-modal').style.display = 'block';
+    document.getElementById('receipt-modal').style.display = 'none';
 
-function generateReceipt(show = true) {
+    // 일정 시간 후에 초기 화면으로 돌아가기
+    setTimeout(() => {
+        document.getElementById('completion-modal').style.display = 'none';
+        document.getElementById('order-screen').style.display = 'none';
+        document.getElementById('initial-screen').style.display = 'block';
+    }, 5000); // 5초 후에 초기 화면으로 이동
+}
+function generateReceipt() {
     const orderNumberEl = document.getElementById('order-number');
     const receiptDetails = document.getElementById('receipt-details');
-    orderNumber = Math.floor(Math.random() * 100000);
+    const orderNumber = Math.floor(Math.random() * 100000);
     const now = new Date();
     const date = now.toLocaleDateString();
     const time = now.toLocaleTimeString();
 
     orderNumberEl.innerText = orderNumber;
 
-    const receiptItems = cart.map(item => `
-        <p>${item.name} x ${item.quantity} - ${item.price * item.quantity} 원</p>
-        ${item.options.length > 0 ? `<ul>${item.options.map(option => `<li>${option.name} +${option.price} 원</li>`).join('')}</ul>` : ''}
-    `).join('');
+    const receiptItems = cart.map(item => {
+        let price = parseFloat(item.basePrice);
+        if (isNaN(price)) {
+            const menuItem = menuItems.find(menuItem => menuItem.name === item.name);
+            if (menuItem) {
+                price = menuItem.price; 
+            } else {
+                price = 0; 
+            }
+        }
+        const totalPrice = price * item.quantity;
+        return `
+            <p>${item.name} x ${item.quantity} - ${totalPrice} 원</p>
+            ${item.options.length > 0 ? `<ul class="receipt-options">${item.options.map(option => `<li>${option.name} +${option.price} 원</li>`).join('')}</ul>` : ''}
+        `;
+    }).join('');
 
     receiptDetails.innerHTML = `
         <p>메가커피 성신여대점</p>
@@ -424,9 +481,7 @@ function generateReceipt(show = true) {
         <p>결제 방식: ${paymentMethod}</p>
     `;
 
-    if (show) {
-        document.getElementById('receipt').style.display = 'block';
-    }
+    document.getElementById('receipt-modal').style.display = 'block';
 }
 
 function showCompletionModal(showReceipt) {
@@ -439,9 +494,9 @@ function showCompletionModal(showReceipt) {
 }
 
 function completeOrder() {
-    const completionModal = document.getElementById('completion-modal');
-    completionModal.style.display = 'none';
-    resetCart();
+    document.getElementById('completion-modal').style.display = 'none';
+    document.getElementById('order-screen').style.display = 'none';
+    document.getElementById('initial-screen').style.display = 'flex';
 }
 
 function resetCart() {

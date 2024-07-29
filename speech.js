@@ -50,8 +50,8 @@ function processVoiceCommand(command) {
             menuItem = findMenuItemByName('ICE 아메리카노');
         } else if (command.includes('아이스 라떼')) {
             menuItem = findMenuItemByName('ICE 카페라떼');
-        } else if (command.includes('결제')) {
-            confirmOrder();
+        } else if (command.includes('아이스 카페라떼')) {
+            menuItem = findMenuItemByName('ICE 카페라떼');
         } else if (command.includes('포장')) {
             document.getElementById('start-screen').style.display = 'none';
             document.getElementById('order-screen').style.display = 'block';

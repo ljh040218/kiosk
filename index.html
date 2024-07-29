@@ -11,7 +11,7 @@
         <img src="키오스크 첫 화면.png" alt="키오스크 첫 화면" class="full-screen-image" onclick="goToMenuSelection()">
     </div>
 
-    <header id="header">
+    <header id="header" class="hidden">
         <button class="home-button" onclick="goToHome()">처음으로</button>
     </header>
     
@@ -66,22 +66,23 @@
             </div>
             <div class="options">
                 <h2>텀블러 선택</h2>
-                <label><input type="radio" class="radio" name="misc" id="misc1" onclick="selectOption('개인 텀블러 사용', 0)"><span>개인 텀블러 사용</span></label>
+                <label><input type="checkbox" class="checkbox" name="misc" id="misc1" onclick="selectOption('개인 텀블러 사용', 0, event)"><span>개인 텀블러 사용</span></label>
 
                 <h2>샷 추가</h2>
-                <label><input type="radio" class="radio" name="shot" id="shot1" onclick="selectOption('연하게', 0)"><span>연하게 +0원</span></label>
-                <label><input type="radio" class="radio" name="shot" id="shot2" onclick="selectOption('샷 추가', 500)"><span>샷 추가 +500원</span></label>
-                <label><input type="radio" class="radio" name="shot" id="shot3" onclick="selectOption('2샷 추가', 1000)"><span>2샷 추가 +1000원</span></label>
+                <label><input type="checkbox" class="checkbox" name="shot" id="shot1" onclick="selectOption('연하게', 0, event)"><span>연하게 +0원</span></label>
+                <label><input type="checkbox" class="checkbox" name="shot" id="shot1" onclick="selectOption('기본 (2샷)', 0, event)"><span>기본 (2샷) +0원</span></label>
+                <label><input type="checkbox" class="checkbox" name="shot" id="shot2" onclick="selectOption('샷 추가', 500, event)"><span>샷 추가 +500원</span></label>
+                <label><input type="checkbox" class="checkbox" name="shot" id="shot3" onclick="selectOption('2샷 추가', 1000, event)"><span>2샷 추가 +1000원</span></label>
 
                 <h2>우유 선택</h2>
-                <label><input type="radio" class="radio" name="milk" id="milk1" onclick="selectOption('일반 우유', 0)"><span>일반 우유 +0원</span></label>
-                <label><input type="radio" class="radio" name="milk" id="milk2" onclick="selectOption('저지방 우유 변경', 500)"><span>저지방 우유 변경 +500원</span></label>
-                <label><input type="radio" class="radio" name="milk" id="milk3" onclick="selectOption('두유 변경', 500)"><span>두유 변경 +500원</span></label>
+                <label><input type="checkbox" class="checkbox" name="milk" id="milk1" onclick="selectOption('일반 우유', 0, event)"><span>일반 우유 +0원</span></label>
+                <label><input type="checkbox" class="checkbox" name="milk" id="milk2" onclick="selectOption('저지방 우유 변경', 500, event)"><span>저지방 우유 변경 +500원</span></label>
+                <label><input type="checkbox" class="checkbox" name="milk" id="milk3" onclick="selectOption('두유 변경', 500, event)"><span>두유 변경 +500원</span></label>
         
                 <h2>당도 추가</h2>
-                <input type="checkbox" class="checkbox" name="sweet" id="check1" onclick="selectOption('연유 추가', 500)"><label for="check1"><span>연유 추가 +500원</span></label>
-                <input type="checkbox" class="checkbox" name="sweet" id="check2" onclick="selectOption('카라멜 시럽 추가', 500)"><label for="check2"><span>카라멜 시럽 추가 +500원</span></label>
-                <input type="checkbox" class="checkbox" name="sweet" id="check3" onclick="selectOption('휘핑 추가', 500)"><label for="check3"><span>휘핑 추가 +500원</span></label>
+                <input type="checkbox" class="checkbox" name="sweet" id="check1" onclick="selectOption('연유 추가', 500, event)"><label for="check1"><span>연유 추가 +500원</span></label>
+                <input type="checkbox" class="checkbox" name="sweet" id="check2" onclick="selectOption('카라멜 시럽 추가', 500, event)"><label for="check2"><span>카라멜 시럽 추가 +500원</span></label>
+                <input type="checkbox" class="checkbox" name="sweet" id="check3" onclick="selectOption('휘핑 추가', 500, event)"><label for="check3"><span>휘핑 추가 +500원</span></label>
             </div>
             <div class="quantity-price">
                 <div class="quantity-control">
@@ -99,58 +100,57 @@
             </div>
         </div>
 
-
-    <div id="confirmation-modal" class="modal">
-        <div class="modal-content">
-            <h2>주문 정보를 확인해주세요:</h2>
-            <div class="confirmation-details" id="confirmation-details">
-                <div id="order-summary">
-                    <h3>주문 내역</h3>
-                    <div class="menu-items">
-                        <!-- 메뉴 항목 -->
+        <div id="confirmation-modal" class="modal">
+            <div class="modal-content">
+                <h2>주문 정보를 확인해주세요:</h2>
+                <div class="confirmation-details" id="confirmation-details">
+                    <div id="order-summary">
+                        <h3>주문 내역</h3>
+                        <div class="menu-items">
+                            <!-- 메뉴 항목 -->
+                        </div>
+                    </div>
+                    <div class="total-price-box">
+                        <p>총 금액: <span id="total-price">0</span> 원</p>
                     </div>
                 </div>
-                <div class="total-price-box">
-                    <p>총 금액: <span id="total-price">0</span> 원</p>
+                <div class="modal-buttons">
+                    <button class="cancel-button" onclick="closeConfirmationModal()">취소</button>
+                    <button onclick="proceedToPayment()">확인</button>
                 </div>
             </div>
-            <div class="modal-buttons">
-                <button class="cancel-button" onclick="closeConfirmationModal()">취소</button>
-                <button onclick="proceedToPayment()">확인</button>
+        </div>
+        
+        <div id="payment-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>결제 수단을 선택해주세요:</h2>
+                <div class="payment-buttons">
+                    <button class="payment-button" onclick="payByCard()">
+                        신용카드
+                        <img src="빈카드.png" alt="신용카드 아이콘" class="icon">
+                    </button>
+                    <button class="payment-button" onclick="payByCash()">
+                        현금
+                        <img src="빈현금.png" alt="현금 아이콘" class="icon">
+                    </button>
+                    <button class="payment-button" onclick="payByMobile()">
+                        모바일 결제
+                        <img src="빈 스마트폰.png" alt="모바일 아이콘" class="icon">
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="payment-modal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2>결제 수단을 선택해주세요:</h2>
-            <div class="payment-buttons">
-                <button class="payment-button" onclick="payByCard()">
-                    신용카드
-                    <img src="빈카드.png" alt="신용카드 아이콘" class="icon">
-                </button>
-                <button class="payment-button" onclick="payByCash()">
-                    현금
-                    <img src="빈현금.png" alt="현금 아이콘" class="icon">
-                </button>
-                <button class="payment-button" onclick="payByMobile()">
-                    모바일 결제
-                    <img src="빈 스마트폰.png" alt="모바일 아이콘" class="icon">
-                </button>
+        <div id="receipt-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeReceiptModal()">&times;</span>
+                <h2>영수증 출력</h2>
+                <p>영수증을 출력하시겠습니까?</p>
+                <button onclick="printReceipt()">예</button>
+                <button onclick="noReceipt()">아니오</button>
             </div>
         </div>
-    </div>
-
-    <div id="receipt-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeReceiptModal()">&times;</span>
-            <h2>영수증 출력</h2>
-            <p>영수증을 출력하시겠습니까?</p>
-            <button onclick="printReceipt()">예</button>
-            <button onclick="noReceipt()">아니오</button>
-        </div>
-    </div>
 
     <div id="completion-modal" class="modal">
         <div class="modal-content">

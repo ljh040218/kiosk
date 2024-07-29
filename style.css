@@ -7,12 +7,20 @@ body, html {
     background-color: #8acaa4; /* 노랑색 #FAF3C0에서 변경 */
 }
 
-  .container {
+#initial-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.container {
     width: 80%;
     margin: auto;
     overflow: hidden;
     text-align: center;
-  }
+}
 
 .full-screen {
     display: flex;
@@ -396,6 +404,25 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
     margin: 0; 
 }
 
+.cart-item .delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 30px;  
+    height: 30px;
+    font-size: 16px;
+    border-radius: 5px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    margin-right: 10px;
+}
+
+.cart-item .delete-button:hover {
+    background-color: darkred;
+}
+
 .cart .total {
     text-align: right;
     margin-top: 10px;
@@ -442,11 +469,6 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
     justify-content: center;
     text-align: center;
     align-items: center;
-}
-
-.confirmation-details {
-    margin-bottom: 20px;
-    text-align: center;
 }
 
 #order-summary {
@@ -540,8 +562,43 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
     text-align: left;
 }
 
+.confirmation-details p,
+.confirmation-details ul,
+.confirmation-details li {
+    font-size: 1em;
+}
+
+.confirmation-details {
+    margin-bottom: 20px;
+    text-align: left; 
+}
+
+.receipt-options {
+    font-size: 1em;
+}
+
 .receipt h2 {
     text-align: center;
+    font-size: 1.5em; 
+}
+
+.receipt-details {
+    font-size: 1em; 
+}
+
+.receipt-details p,
+.receipt-details ul,
+.receipt-details li {
+    font-size: 1em; 
+    margin: 0; 
+    padding: 0; 
+}
+
+.receipt-options li {
+    font-size: 0.5em; 
+    margin-left: 10px; 
+    margin: 0; 
+    padding: 0; 
 }
 
 .payment-buttons {
