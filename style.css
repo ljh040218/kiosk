@@ -84,6 +84,10 @@ p {
     color: #333;
 }
 
+#order-screen {
+    padding: 20px 0; /* 위아래로 여백 추가 */
+}
+
 /* 주문 방식 선택, 포장 매장 선택하는 부분 중앙 정렬 */
 .center-content {
     display: flex;
@@ -771,4 +775,97 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
     padding: 30px;
     font-size: 2em;
     margin: 20px auto;
+}
+
+#carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px; /* 전체 너비를 조정 */
+    margin: 40px auto;
+    overflow: visible;
+}
+
+.carousel-wrapper {
+    display: flex;
+    transition: transform 0.2s ease;
+    flex: 1;
+    justify-content: center;
+    padding: 0 60px; /* 좌우 여백을 추가 */
+}
+
+.carousel-items {
+    display: flex;
+    flex-wrap: nowrap;
+    transition: transform 0.2s ease;
+    width: 100%;
+}
+
+.carousel-item {
+    flex: 0 0 20%; /* 각 아이템이 가로로 5개씩 보이도록 설정 */
+    max-width: 20%;
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    position: relative;
+    overflow: visible;
+}
+
+.carousel-item img {
+    width: 80%; /* 이미지 크기를 확대 */
+    height: auto;
+    object-fit: contain;
+}
+
+.carousel-item h3 {
+    font-size: 1.8em; /* 글씨 크기 확대 */
+    margin: 10px 0;
+}
+
+.carousel-item p {
+    font-size: 1.5em; /* 가격 텍스트 크기 확대 */
+    margin: 5px 0;
+}
+
+.carousel-item button {
+    font-size: 1.5em; /* 버튼 텍스트 크기 확대 */
+    padding: 15px;
+}
+
+.carousel-item.active {
+    transform: scale(1.7); /* 중앙 메뉴 크기를 더 크게 확대 */
+    z-index: 10;
+}
+
+.carousel-btn {
+    width: 60px; /* 버튼 크기 확대 */
+    height: 60px;
+    background-color: #c3c3c3;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    font-size: 2.5rem; /* 버튼 아이콘 크기 확대 */
+    cursor: pointer;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.carousel-btn.prev {
+    left: 0; /* 왼쪽 끝에 위치 */
+}
+
+.carousel-btn.next {
+    right: 0; /* 오른쪽 끝에 위치 */
+}
+
+.carousel-btn:hover {
+    background-color: rgba(250, 250, 250, 0.5);
+    transform: scale(1.1); /* Hover 시 크기 약간 증가 */
 }

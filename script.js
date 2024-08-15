@@ -1,52 +1,52 @@
 const menuItems = [
-    { name: "ICE 메가리카노", category: "coffee", subcategory: "에스프레소", price: 3000, img: "C:/Users/이소정/Desktop/키오스크/1.png" },
-    { name: "ICE 아메리카노", category: "coffee", subcategory: "에스프레소", price: 2000, img: "C:/Users/이소정/Desktop/키오스크/2.png" },
-    { name: "할메가커피", category: "coffee", subcategory: "에스프레소", price: 1900, img: "C:/Users/이소정/Desktop/키오스크/3.png" },
-    { name: "왕할메가커피", category: "coffee", subcategory: "에스프레소", price: 2900, img: "C:/Users/이소정/Desktop/키오스크/4.png" },
-    { name: "ICE 꿀아메리카노", category: "coffee", subcategory: "에스프레소", price: 2700, img: "C:/Users/이소정/Desktop/키오스크/5.png" },
-    { name: "ICE 바닐라아메리카노", category: "coffee", subcategory: "에스프레소", price: 2700, img: "C:/Users/이소정/Desktop/키오스크/6.png" },
-    { name: "ICE 헤이즐넛아메리카노", category: "coffee", subcategory: "에스프레소", price: 2700, img: "C:/Users/이소정/Desktop/키오스크/7.png" },
-    { name: "HOT 아메리카노", category: "coffee", subcategory: "에스프레소", price: 1500, img: "C:/Users/이소정/Desktop/키오스크/8.png" },
-    { name: "HOT 꿀아메리카노", category: "coffee", subcategory: "에스프레소", price: 2700, img: "C:/Users/이소정/Desktop/키오스크/8.png" },
-    { name: "HOT 바닐라아메리카노", category: "coffee", subcategory: "에스프레소", price: 2700, img: "C:/Users/이소정/Desktop/키오스크/8.png" },
-    { name: "HOT 헤이즐넛아메리카노", category: "coffee", subcategory: "에스프레소", price: 2700, img: "C:/Users/이소정/Desktop/키오스크/8.png" },
-    { name: "ICE 카페라떼", category: "coffee", subcategory: "라떼", price: 2900, img: "C:/Users/이소정/Desktop/키오스크/12.png" },
-    { name: "ICE 바닐라라떼", category: "coffee", subcategory: "라떼", price: 3400, img: "C:/Users/이소정/Desktop/키오스크/13.png" },
-    { name: "ICE 연유라떼", category: "coffee", subcategory: "라떼", price: 3900, img: "C:/Users/이소정/Desktop/키오스크/13.png" },
-    { name: "ICE 큐브라떼", category: "coffee", subcategory: "라떼", price: 4200, img: "C:/Users/이소정/Desktop/키오스크/15.png" },
-    { name: "ICE 카페모카", category: "coffee", subcategory: "라떼", price: 3900, img: "C:/Users/이소정/Desktop/키오스크/16.png" },
-    { name: "ICE 카푸치노", category: "coffee", subcategory: "라떼", price: 2900, img: "C:/Users/이소정/Desktop/키오스크/17.png" },
-    { name: "HOT 카페라떼", category: "coffee", subcategory: "라떼", price: 2900, img: "C:/Users/이소정/Desktop/키오스크/18.png" },
-    { name: "HOT 바닐라라떼", category: "coffee", subcategory: "라떼", price: 3400, img: "C:/Users/이소정/Desktop/키오스크/18.png" },
-    { name: "HOT 연유라떼", category: "coffee", subcategory: "라떼", price: 3900, img: "C:/Users/이소정/Desktop/키오스크/20.png" },
-    { name: "HOT 카푸치노", category: "coffee", subcategory: "라떼", price: 2900, img: "C:/Users/이소정/Desktop/키오스크/21.png" },
-    { name: "HOT 카페모카", category: "coffee", subcategory: "라떼", price: 3900, img: "C:/Users/이소정/Desktop/키오스크/22.png" },
-    { name: "HOT 카라멜마끼아또", category: "coffee", subcategory: "라떼", price: 3700, img: "C:/Users/이소정/Desktop/키오스크/23.png" },
-    { name: "오이오이 라임 오히또", category: "beverages", subcategory: "에이드", price: 3900, img: "C:/Users/이소정/Desktop/키오스크/24.png" },
-    { name: "메가에이드", category: "beverages", subcategory: "에이드", price: 3900, img: "C:/Users/이소정/Desktop/키오스크/25.png" },
-    { name: "유니콘매직에이드(블루)", category: "beverages", subcategory: "에이드", price: 3800, img: "C:/Users/이소정/Desktop/키오스크/26.png" },
-    { name: "레몬에이드", category: "beverages", subcategory: "에이드", price: 3500, img: "C:/Users/이소정/Desktop/키오스크/27.png" },
-    { name: "블루레몬에이드", category: "beverages", subcategory: "에이드", price: 3500, img: "C:/Users/이소정/Desktop/키오스크/28.png" },
-    { name: "자몽에이드", category: "beverages", subcategory: "에이드", price: 3500, img: "C:/Users/이소정/Desktop/키오스크/29.png" },
-    { name: "청포도에이드", category: "beverages", subcategory: "에이드", price: 3500, img: "C:/Users/이소정/Desktop/키오스크/30.png" },
-    { name: "라임모히또", category: "beverages", subcategory: "에이드", price: 3800, img: "C:/Users/이소정/Desktop/키오스크/31.png" },
-    { name: "체리콕", category: "beverages", subcategory: "논-커피 라떼", price: 3300, img: "C:/Users/이소정/Desktop/키오스크/32.png" },
-    { name: "왕메가초코", category: "beverages", subcategory: "논-커피 라떼", price: 4400, img: "C:/Users/이소정/Desktop/키오스크/33.png" },
-    { name: "ICE 딸기라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3700, img: "C:/Users/이소정/Desktop/키오스크/34.png" },
-    { name: "ICE 오레오초코라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3900, img: "C:/Users/이소정/Desktop/키오스크/35.png" },
-    { name: "ICE 곡물라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3300, img: "C:/Users/이소정/Desktop/키오스크/36.png" },
-    { name: "ICE 녹차라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3500, img: "C:/Users/이소정/Desktop/키오스크/37.png" },
-    { name: "ICE 토피넛라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3800, img: "C:/Users/이소정/Desktop/키오스크/38.png" },
-    { name: "ICE 고구마라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3500, img: "C:/Users/이소정/Desktop/키오스크/39.png" },
-    { name: "ICE 로얄밀크티라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3700, img: "C:/Users/이소정/Desktop/키오스크/40.png" },
-    { name: "ICE 흑당라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3300, img: "C:/Users/이소정/Desktop/키오스크/41.png" },
-    { name: "ICE 흑당밀크티라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3500, img: "C:/Users/이소정/Desktop/키오스크/42.png" },
-    { name: "ICE 흑당버블 밀크티라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3800, img: "C:/Users/이소정/Desktop/키오스크/43.png" },
-    { name: "핫초코", category: "beverages", subcategory: "논-커피 라떼", price: 3500, img: "C:/Users/이소정/Desktop/키오스크/44.png" },
-    { name: "HOT 곡물라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3300, img: "C:/Users/이소정/Desktop/키오스크/45.png" },
-    { name: "HOT 녹차라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3500, img: "C:/Users/이소정/Desktop/키오스크/46.png" },
-    { name: "HOT 토피넛라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3800, img: "C:/Users/이소정/Desktop/키오스크/47.png" },
-    { name: "HOT 고구마라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3500, img: "C:/Users/이소정/Desktop/키오스크/48.png" }
+    { name: "ICE 메가리카노", category: "coffee", subcategory: "에스프레소", price: 3000, img: "images/1.png" },
+    { name: "ICE 아메리카노", category: "coffee", subcategory: "에스프레소", price: 2000, img: "images/2.png" },
+    { name: "할메가커피", category: "coffee", subcategory: "에스프레소", price: 1900, img: "images/3.png" },
+    { name: "왕할메가커피", category: "coffee", subcategory: "에스프레소", price: 2900, img: "images/4.png" },
+    { name: "ICE 꿀아메리카노", category: "coffee", subcategory: "에스프레소", price: 2700, img: "images/5.png" },
+    { name: "ICE 바닐라아메리카노", category: "coffee", subcategory: "에스프레소", price: 2700, img: "images/6.png" },
+    { name: "ICE 헤이즐넛아메리카노", category: "coffee", subcategory: "에스프레소", price: 2700, img: "images/7.png" },
+    { name: "HOT 아메리카노", category: "coffee", subcategory: "에스프레소", price: 1500, img: "images/8.png" },
+    { name: "HOT 꿀아메리카노", category: "coffee", subcategory: "에스프레소", price: 2700, img: "images/8.png" },
+    { name: "HOT 바닐라아메리카노", category: "coffee", subcategory: "에스프레소", price: 2700, img: "images/8.png" },
+    { name: "HOT 헤이즐넛아메리카노", category: "coffee", subcategory: "에스프레소", price: 2700, img: "images/8.png" },
+    { name: "ICE 카페라떼", category: "coffee", subcategory: "라떼", price: 2900, img: "images/12.png" },
+    { name: "ICE 바닐라라떼", category: "coffee", subcategory: "라떼", price: 3400, img: "images/13.png" },
+    { name: "ICE 연유라떼", category: "coffee", subcategory: "라떼", price: 3900, img: "images/13.png" },
+    { name: "ICE 큐브라떼", category: "coffee", subcategory: "라떼", price: 4200, img: "images/15.png" },
+    { name: "ICE 카페모카", category: "coffee", subcategory: "라떼", price: 3900, img: "images/16.png" },
+    { name: "ICE 카푸치노", category: "coffee", subcategory: "라떼", price: 2900, img: "images/17.png" },
+    { name: "HOT 카페라떼", category: "coffee", subcategory: "라떼", price: 2900, img: "images/18.png" },
+    { name: "HOT 바닐라라떼", category: "coffee", subcategory: "라떼", price: 3400, img: "images/18.png" },
+    { name: "HOT 연유라떼", category: "coffee", subcategory: "라떼", price: 3900, img: "images/20.png" },
+    { name: "HOT 카푸치노", category: "coffee", subcategory: "라떼", price: 2900, img: "images/21.png" },
+    { name: "HOT 카페모카", category: "coffee", subcategory: "라떼", price: 3900, img: "images/22.png" },
+    { name: "HOT 카라멜마끼아또", category: "coffee", subcategory: "라떼", price: 3700, img: "images/23.png" },
+    { name: "오이오이 라임 오히또", category: "beverages", subcategory: "에이드", price: 3900, img: "images/24.png" },
+    { name: "메가에이드", category: "beverages", subcategory: "에이드", price: 3900, img: "images/25.png" },
+    { name: "유니콘매직에이드(블루)", category: "beverages", subcategory: "에이드", price: 3800, img: "images/26.png" },
+    { name: "레몬에이드", category: "beverages", subcategory: "에이드", price: 3500, img: "images/27.png" },
+    { name: "블루레몬에이드", category: "beverages", subcategory: "에이드", price: 3500, img: "images/28.png" },
+    { name: "자몽에이드", category: "beverages", subcategory: "에이드", price: 3500, img: "images/29.png" },
+    { name: "청포도에이드", category: "beverages", subcategory: "에이드", price: 3500, img: "images/30.png" },
+    { name: "라임모히또", category: "beverages", subcategory: "에이드", price: 3800, img: "images/31.png" },
+    { name: "체리콕", category: "beverages", subcategory: "논-커피 라떼", price: 3300, img: "images/32.png" },
+    { name: "왕메가초코", category: "beverages", subcategory: "논-커피 라떼", price: 4400, img: "images/33.png" },
+    { name: "ICE 딸기라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3700, img: "images/34.png" },
+    { name: "ICE 오레오초코라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3900, img: "images/35.png" },
+    { name: "ICE 곡물라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3300, img: "images/36.png" },
+    { name: "ICE 녹차라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3500, img: "images/37.png" },
+    { name: "ICE 토피넛라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3800, img: "images/38.png" },
+    { name: "ICE 고구마라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3500, img: "images/39.png" },
+    { name: "ICE 로얄밀크티라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3700, img: "images/40.png" },
+    { name: "ICE 흑당라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3300, img: "images/41.png" },
+    { name: "ICE 흑당밀크티라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3500, img: "images/42.png" },
+    { name: "ICE 흑당버블 밀크티라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3800, img: "images/43.png" },
+    { name: "핫초코", category: "beverages", subcategory: "논-커피 라떼", price: 3500, img: "images/44.png" },
+    { name: "HOT 곡물라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3300, img: "images/45.png" },
+    { name: "HOT 녹차라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3500, img: "images/46.png" },
+    { name: "HOT 토피넛라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3800, img: "images/47.png" },
+    { name: "HOT 고구마라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3500, img: "images/48.png" }
 ];
 
 let selectedCategory = '';
@@ -60,7 +60,8 @@ const itemsPerPageDefault = 12;
 let selectedMenuItem = null;
 let selectedOptions = [];
 let quantity = 1;
-
+let currentIndex = 1;
+let isFriendlyMode = false;
 
 const categories = {
     coffee: ["에스프레소", "라떼"],
@@ -80,7 +81,118 @@ function goToMenuSelection() {
     document.getElementById('menu-selection-screen').style.display = 'block';
 }
 
-// 친절한 메뉴판 함수 friendly 클래스 불러옴
+function displayCarouselItems() {
+    const carouselItems = document.querySelector('.carousel-items');
+    carouselItems.innerHTML = '';
+    const filteredItems = menuItems.filter(item => item.category === selectedCategory && item.subcategory === selectedSubCategory);
+
+    filteredItems.forEach(item => {
+        const menuItem = document.createElement('div');
+        menuItem.classList.add('carousel-item');
+        menuItem.innerHTML = `
+            <img src="${item.img}" alt="${item.name}">
+            <h3>${item.name}</h3>
+            <p>${item.price} 원</p>
+            <button onclick="addToCart('${item.name}', ${item.price})">담기</button>
+        `;
+        carouselItems.appendChild(menuItem);
+    });
+
+    // 캐러셀 컨테이너를 보이게 설정
+    document.getElementById('carousel-container').style.display = 'block';
+}
+
+function displayMenuItems() {
+    const carouselContainer = document.getElementById('carousel-container');
+    const carouselItems = document.querySelector('.carousel-items');
+    const menuContainer = document.getElementById('menu');
+
+    // 기존 메뉴 초기화
+    carouselItems.innerHTML = '';
+    menuContainer.innerHTML = '';
+
+    const filteredItems = menuItems.filter(item => item.category === selectedCategory && item.subcategory === selectedSubCategory);
+
+    if (isFriendlyMode) {
+        // 간편 주문 모드일 때 캐러셀 슬라이더에 아이템 추가
+        filteredItems.forEach(item => {
+            const menuItem = document.createElement('div');
+            menuItem.classList.add('carousel-item');
+            menuItem.innerHTML = `
+                <img src="${item.img}" alt="${item.name}">
+                <h3>${item.name}</h3>
+                <p>${item.price} 원</p>
+                <button onclick="addToCart('${item.name}', ${item.price})">담기</button>
+            `;
+            carouselItems.appendChild(menuItem);
+        });
+        carouselContainer.style.display = 'block';
+        menuContainer.style.display = 'none';
+    } else {
+        // 기본 주문 모드일 때 리스트 형태로 아이템 추가
+        filteredItems.forEach(item => {
+            const menuItem = document.createElement('div');
+            menuItem.classList.add('menu-item');
+            menuItem.innerHTML = `
+                <img src="${item.img}" alt="${item.name}">
+                <h3>${item.name}</h3>
+                <p>${item.price} 원</p>
+                <button onclick="addToCart('${item.name}', ${item.price})">담기</button>
+            `;
+            menuContainer.appendChild(menuItem);
+        });
+        carouselContainer.style.display = 'none';
+        menuContainer.style.display = 'flex';
+    }
+
+    // 페이지 번호 갱신
+    const pageNumberElement = document.getElementById('page-number');
+    const paginationElement = document.getElementById('pagination');
+    if (pageNumberElement && paginationElement) {
+        pageNumberElement.innerText = `${currentPage} / ${Math.ceil(filteredItems.length / (isFriendlyMode ? itemsPerPageFriendly : itemsPerPageDefault))}`;
+        paginationElement.style.display = filteredItems.length > (isFriendlyMode ? itemsPerPageFriendly : itemsPerPageDefault) ? 'block' : 'none';
+    }
+}
+
+function updateCarouselPosition() {
+    const carouselItems = document.querySelectorAll('.carousel-item');
+    const containerWidth = document.querySelector('.carousel-wrapper').offsetWidth;
+    const itemWidth = containerWidth / 5; // 화면에 5개의 아이템이 보이도록 설정
+    const position = -currentIndex * itemWidth + (containerWidth / 2 - itemWidth / 2);
+
+    document.querySelector('.carousel-wrapper').style.transform = `translateX(${position}px)`;
+
+    carouselItems.forEach((item, index) => {
+        if (index === currentIndex) {
+            item.classList.add('active'); // 중앙에 있는 메뉴를 크게 표시
+            item.style.zIndex = 10; // 중앙의 메뉴를 앞에 보이도록 설정
+        } else {
+            item.classList.remove('active'); // 나머지 메뉴는 기본 크기 유지
+            item.style.zIndex = 1; // 다른 메뉴는 뒤로 가도록 설정
+        }
+    });
+}
+
+document.querySelector('.carousel-btn.next').addEventListener('click', () => {
+    const totalItems = document.querySelectorAll('.carousel-item').length;
+    if (currentIndex < totalItems - 1) {
+        currentIndex++;
+        updateCarouselPosition();
+    }
+});
+
+document.querySelector('.carousel-btn.prev').addEventListener('click', () => {
+    if (currentIndex > 0) {
+        currentIndex--;
+        updateCarouselPosition();
+    }
+});
+
+window.addEventListener('load', () => {
+    updateCarouselPosition();
+    window.addEventListener('resize', updateCarouselPosition); // 창 크기 변경 시 위치 조정
+});
+
 function selectMenu(menuType) {
     const orderScreen = document.getElementById('order-screen');
     const startScreen = document.getElementById('start-screen');
@@ -92,37 +204,38 @@ function selectMenu(menuType) {
         startScreen.classList.add('friendly');
         voiceButton.style.display = 'block'; // 음성 인식 버튼 표시
 
-        const h1 = startScreen.querySelector('h1');
-        h1.style.fontSize = '2.5em';
-
-        // 간편 주문 모드에서 버튼 크기 조정
-        const buttons = startScreen.querySelectorAll('.order-button');
-        buttons.forEach(button => {
-            button.style.width = '300px';
-            button.style.padding = '30px';
-            button.style.fontSize = '2em';
-            button.style.margin = '20px auto';
-        });
-    } else {
-        isFriendlyMode = false;  // 간편 주문 모드 비활성화
-        voiceButton.style.display = 'none'; // 음성 인식 버튼 숨기기
-        if (recognition) {
-            recognition.stop();  // 음성 인식 중지
-        }
+    } else if (menuType === 'basic') {
+        isFriendlyMode = false;  // 기본 주문 모드 활성화
         orderScreen.classList.remove('friendly');
         startScreen.classList.remove('friendly');
+        voiceButton.style.display = 'none'; // 음성 인식 버튼 숨기기
+
+        // 기본 주문 모드에서 버튼 크기 기본 설정으로 복원
+        const buttons = startScreen.querySelectorAll('.order-button');
+        buttons.forEach(button => {
+            button.style.width = ''; // 기본 스타일로 초기화
+            button.style.padding = '';
+            button.style.fontSize = '';
+            button.style.margin = '';
+        });
     }
-    
     document.getElementById('menu-selection-screen').style.display = 'none';
     startScreen.style.display = 'block';
 }
 
 function startOrder(orderType) {
-    if (isFriendlyMode) {
-        startVoiceRecognition();  // 간편 주문 모드에서만 음성 인식 시작
-    }
     document.getElementById('start-screen').style.display = 'none';
     document.getElementById('order-screen').style.display = 'block';
+    
+    if (isFriendlyMode) {
+        startVoiceRecognition();  // 간편 주문 모드에서만 음성 인식 시작
+        document.getElementById('carousel-container').style.display = 'block';
+        document.getElementById('menu').style.display = 'none';
+    } else {
+        document.getElementById('carousel-container').style.display = 'none';
+        document.getElementById('menu').style.display = 'flex';
+    }
+    
     showMenu('coffee', '에스프레소');
 }
 
@@ -130,11 +243,13 @@ function showMenu(category, subcategory) {
     selectedCategory = category;
     selectedSubCategory = subcategory;
     currentPage = 1;
+    currentIndex = 0;
     displayCategoryButtons();
     displaySubCategoryButtons();
-    displayMenuItems();
     if (isFriendlyMode) {
-        startVoiceRecognition();  // 간편 주문 모드에서만 음성 인식 시작
+        displayCarouselItems();
+    } else {
+        displayMenuItems();
     }
 }
 
@@ -527,3 +642,4 @@ function resetOrder() {
         recognition.stop();
     }
 }
+

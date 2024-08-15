@@ -38,16 +38,21 @@
             <!-- 서브카테고리 버튼 -->
         </div>
         <h1>주문 메뉴</h1>
-        <div class="menu" id="menu">
-            <!-- 메뉴 아이템 -->
+         <!-- 캐러셀 슬라이더 구조 -->
+         <div id="carousel-container" style="display: none;">
+            <button class="carousel-btn prev">〈</button>
+            <div class="carousel-wrapper">
+                <div class="carousel-items">
+                    <!-- 메뉴 아이템들이 슬라이드 형태로 추가됩니다 -->
+                </div>
+            </div>
+            <button class="carousel-btn next">〉</button>
         </div>
-    
-        <!-- 친절한 메뉴판 크기 때문에 페이지 기능 추가함 -->
-        <div class="pagination" id="pagination" style="display: none;">
-            <button onclick="prevPage()">이전</button>
-            <span id="page-number"></span>
-            <button onclick="nextPage()">다음</button>
-        </div> 
+
+        <!-- 기존의 리스트 형태로 메뉴를 보여주는 부분 -->
+        <div id="menu" class="menu">
+            <!-- 메뉴 아이템들이 여기에 추가됩니다 -->
+        </div>
     
         <div class="cart">
             <h2>장바구니</h2>
@@ -166,6 +171,5 @@
     </div>
     <div id="blur-background"></div>
     <script src="script.js"></script>
-    <script src="speech.js"></script>
 </body>
 </html>
