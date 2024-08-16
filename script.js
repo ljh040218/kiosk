@@ -30,7 +30,7 @@ const menuItems = [
     { name: "자몽에이드", category: "beverages", subcategory: "에이드", price: 3500, img: "images/29.png" },
     { name: "청포도에이드", category: "beverages", subcategory: "에이드", price: 3500, img: "images/30.png" },
     { name: "라임모히또", category: "beverages", subcategory: "에이드", price: 3800, img: "images/31.png" },
-    { name: "체리콕", category: "beverages", subcategory: "논-커피 라떼", price: 3300, img: "images/32.png" },
+    { name: "체리콕", category: "beverages", subcategory: "에이드", price: 3300, img: "images/32.png" },
     { name: "왕메가초코", category: "beverages", subcategory: "논-커피 라떼", price: 4400, img: "images/33.png" },
     { name: "ICE 딸기라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3700, img: "images/34.png" },
     { name: "ICE 오레오초코라떼", category: "beverages", subcategory: "논-커피 라떼", price: 3900, img: "images/35.png" },
@@ -113,6 +113,11 @@ function displayMenuItems() {
 
     const filteredItems = menuItems.filter(item => item.category === selectedCategory && item.subcategory === selectedSubCategory);
 
+    if (filteredItems.length === 0) {
+        console.error("해당 서브카테고리에 해당하는 메뉴가 없습니다.");
+        return;
+    }
+
     if (isFriendlyMode) {
         // 간편 주문 모드일 때 캐러셀 슬라이더에 아이템 추가
         filteredItems.forEach(item => {
@@ -143,14 +148,6 @@ function displayMenuItems() {
         });
         carouselContainer.style.display = 'none';
         menuContainer.style.display = 'flex';
-    }
-
-    // 페이지 번호 갱신
-    const pageNumberElement = document.getElementById('page-number');
-    const paginationElement = document.getElementById('pagination');
-    if (pageNumberElement && paginationElement) {
-        pageNumberElement.innerText = `${currentPage} / ${Math.ceil(filteredItems.length / (isFriendlyMode ? itemsPerPageFriendly : itemsPerPageDefault))}`;
-        paginationElement.style.display = filteredItems.length > (isFriendlyMode ? itemsPerPageFriendly : itemsPerPageDefault) ? 'block' : 'none';
     }
 }
 
@@ -271,7 +268,6 @@ function showMenu(category, subcategory) {
     // 메뉴 아이템 표시
     displayMenuItems();
 }
-
 
 function displayCategoryButtons() {
     const categoryButtons = document.querySelectorAll('#category-buttons .menu-button');
