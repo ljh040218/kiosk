@@ -60,7 +60,7 @@ const itemsPerPageDefault = 12;
 let selectedMenuItem = null;
 let selectedOptions = [];
 let quantity = 1;
-let currentIndex = 1;
+let currentIndex = 0;
 let isFriendlyMode = false;
 
 const categories = {
@@ -226,32 +226,52 @@ function selectMenu(menuType) {
 function startOrder(orderType) {
     document.getElementById('start-screen').style.display = 'none';
     document.getElementById('order-screen').style.display = 'block';
-    
-    if (isFriendlyMode) {
-        startVoiceRecognition();  // 간편 주문 모드에서만 음성 인식 시작
-        document.getElementById('carousel-container').style.display = 'block';
-        document.getElementById('menu').style.display = 'none';
-    } else {
-        document.getElementById('carousel-container').style.display = 'none';
-        document.getElementById('menu').style.display = 'flex';
-    }
-    
-    showMenu('coffee', '에스프레소');
+
+    // 기본 선택된 카테고리와 서브카테고리 설정
+    showMenu('coffee', '에스프레소'); // 기본으로 커피와 에스프레소 선택
 }
 
 function showMenu(category, subcategory) {
     selectedCategory = category;
     selectedSubCategory = subcategory;
-    currentPage = 1;
-    currentIndex = 0;
-    displayCategoryButtons();
-    displaySubCategoryButtons();
-    if (isFriendlyMode) {
-        displayCarouselItems();
-    } else {
-        displayMenuItems();
-    }
+
+    // 카테고리 버튼 활성화
+    const categoryButtons = document.querySelectorAll('.menu-button');
+    categoryButtons.forEach(button => {
+        if (button.textContent === (category === 'coffee' ? '커피' : '음료')) {
+            button.classList.add('active');
+        } else {
+            button.classList.remove('active');
+        }
+    });
+
+    // 서브카테고리 버튼 업데이트
+    const subcategoryButtons = document.getElementById('subcategory-buttons');
+    subcategoryButtons.innerHTML = ''; // 기존 서브 카테고리 버튼 초기화
+    categories[category].forEach(subcat => {
+        const button = document.createElement('button');
+        button.classList.add('subcategory-button');
+        button.textContent = subcat;
+        if (subcat === subcategory) {
+            button.classList.add('active'); // 선택된 서브 카테고리 버튼 활성화
+        }
+        button.addEventListener('click', () => {
+            selectedSubCategory = subcat;
+            // 모든 서브카테고리 버튼 비활성화 후, 클릭된 버튼 활성화
+            Array.from(subcategoryButtons.children).forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            // 서브카테고리 변경에 따라 메뉴 표시
+            displayMenuItems();
+        });
+        subcategoryButtons.appendChild(button);
+    });
+
+    subcategoryButtons.style.display = 'flex'; // 서브 카테고리 버튼 표시
+
+    // 메뉴 아이템 표시
+    displayMenuItems();
 }
+
 
 function displayCategoryButtons() {
     const categoryButtons = document.querySelectorAll('#category-buttons .menu-button');
@@ -281,28 +301,65 @@ function displaySubCategoryButtons() {
 }
 
 function displayMenuItems() {
-    const menu = document.getElementById('menu');
-    menu.innerHTML = '';
-    const isFriendly = document.getElementById('order-screen').classList.contains('friendly');
-    const itemsPerPage = isFriendly ? itemsPerPageFriendly : itemsPerPageDefault;
-    const start = (currentPage - 1) * itemsPerPage;
+    const carouselContainer = document.getElementById('carousel-container');
+    const carouselItems = document.querySelector('.carousel-items');
+    const menuContainer = document.getElementById('menu');
+    const orderTitle = document.getElementById('order-title');  // '주문 메뉴' 텍스트 선택
+
+    // 기존 메뉴 초기화
+    carouselItems.innerHTML = '';
+    menuContainer.innerHTML = '';
+
     const filteredItems = menuItems.filter(item => item.category === selectedCategory && item.subcategory === selectedSubCategory);
-    const itemsToShow = filteredItems.slice(start, start + itemsPerPage);
 
-    itemsToShow.forEach(item => {
-        const menuItem = document.createElement('div');
-        menuItem.classList.add('menu-item');
-        menuItem.innerHTML = `
-            <img src="${item.img}" alt="${item.name}">
-            <h3>${item.name}</h3>
-            <p>${item.price} 원</p>
-            <button onclick="addToCart('${item.name}', ${item.price})">담기</button>
-        `;
-        menu.appendChild(menuItem);
-    });
+    if (isFriendlyMode) {
+        // 간편 주문 모드일 때 캐러셀 슬라이더에 아이템 추가
+        filteredItems.forEach(item => {
+            const menuItem = document.createElement('div');
+            menuItem.classList.add('carousel-item');
+            menuItem.innerHTML = `
+                <img src="${item.img}" alt="${item.name}">
+                <h3>${item.name}</h3>
+                <p>${item.price} 원</p>
+                <button onclick="addToCart('${item.name}', ${item.price})">담기</button>
+            `;
+            carouselItems.appendChild(menuItem);
+        });
+        carouselContainer.style.display = 'block';
+        menuContainer.style.display = 'none';
+        
+        // 간편 주문 모드 스타일 적용
+        orderTitle.style.textAlign = 'left';
+        orderTitle.style.marginLeft = '20px';
 
-    document.getElementById('page-number').innerText = `${currentPage} / ${Math.ceil(filteredItems.length / itemsPerPage)}`;
-    document.getElementById('pagination').style.display = filteredItems.length > itemsPerPage ? 'block' : 'none';
+    } else {
+        // 기본 주문 모드일 때 리스트 형태로 아이템 추가
+        filteredItems.forEach(item => {
+            const menuItem = document.createElement('div');
+            menuItem.classList.add('menu-item');
+            menuItem.innerHTML = `
+                <img src="${item.img}" alt="${item.name}">
+                <h3>${item.name}</h3>
+                <p>${item.price} 원</p>
+                <button onclick="addToCart('${item.name}', ${item.price})">담기</button>
+            `;
+            menuContainer.appendChild(menuItem);
+        });
+        carouselContainer.style.display = 'none';
+        menuContainer.style.display = 'flex';
+        
+        // 기본 주문 모드 스타일 복원
+        orderTitle.style.textAlign = 'center';
+        orderTitle.style.marginLeft = '0';
+    }
+
+    // 페이지 번호 갱신
+    const pageNumberElement = document.getElementById('page-number');
+    const paginationElement = document.getElementById('pagination');
+    if (pageNumberElement && paginationElement) {
+        pageNumberElement.innerText = `${currentPage} / ${Math.ceil(filteredItems.length / (isFriendlyMode ? itemsPerPageFriendly : itemsPerPageDefault))}`;
+        paginationElement.style.display = filteredItems.length > (isFriendlyMode ? itemsPerPageFriendly : itemsPerPageDefault) ? 'block' : 'none';
+    }
 }
 
 function nextPage() {
@@ -349,7 +406,7 @@ function updateCart() {
         cartItem.innerHTML = `
             <button class="delete-button" onclick="removeFromCart(${index})">x</button>
             <h3>${item.name}</h3>
-            <p>${item.price} 원</p>
+            <p class="cart-price">${item.price} 원</p>
             <div class="quantity-control">
                 <button class="decrease-button" onclick="decreaseQuantity(${index})">-</button>
                 <span>${item.quantity}</span>
@@ -558,6 +615,7 @@ function noReceipt() {
         document.getElementById('initial-screen').style.display = 'block';
     }, 5000); // 5초 후에 초기 화면으로 이동
 }
+
 function generateReceipt() {
     const orderNumberEl = document.getElementById('order-number');
     const receiptDetails = document.getElementById('receipt-details');
@@ -642,4 +700,3 @@ function resetOrder() {
         recognition.stop();
     }
 }
-

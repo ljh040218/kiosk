@@ -85,7 +85,8 @@ p {
 }
 
 #order-screen {
-    padding: 20px 0; /* 위아래로 여백 추가 */
+    padding: 40px 0;
+    padding-top: 10px;
 }
 
 /* 주문 방식 선택, 포장 매장 선택하는 부분 중앙 정렬 */
@@ -137,6 +138,7 @@ p {
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-bottom: 15px;
 }
 
 .menu-button:hover, .cart button:hover {
@@ -154,6 +156,12 @@ p {
     font-size: 1.2em;
 }
 
+#subcategory-buttons {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+
 .subcategory-button {
     width: 150px;
     padding: 10px;
@@ -163,6 +171,7 @@ p {
     color: white;
     border: none;
     cursor: pointer;
+    margin-bottom: 100px;
 }
 
 .subcategory-button:hover {
@@ -388,9 +397,10 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
 
 .cart {
     background: white;
-    padding: 10px;
     border: 1px solid #ddd;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 50px 0; 
+    margin-top: 60px;
 }
 
 .cart-item {
@@ -415,22 +425,28 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
     cursor: pointer;
     width: 30px;  
     height: 30px;
-    font-size: 16px;
+    font-size: 25px;
     border-radius: 5px;
     display: flex; 
     align-items: center; 
     justify-content: center; 
     margin-right: 10px;
+   
 }
 
 .cart-item .delete-button:hover {
     background-color: darkred;
 }
 
+.cart-price {
+    font-size: 1.5em; 
+    font-weight: bold;
+}
+
 .cart .total {
     text-align: right;
     margin-top: 10px;
-    font-size: 1.5em;
+    font-size: 2.0em;
 }
 
 .cart button {
@@ -638,7 +654,18 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
     background-color: #45a049;
 }
 
-/* 여기부터 친절한 메뉴판 */
+
+#order-title {
+    text-align: center; /* 기본 모드에서 중앙 정렬 */
+    font-size: 1.8em;
+}
+
+.friendly #order-title {
+    text-align: left;
+    margin-left: 20px;
+    font-size: 2.2em;
+}
+
 .friendly #start-screen h1 {
     color: #333;
     margin-bottom: 20px;
@@ -722,9 +749,12 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
     cursor: pointer; 
 }
 
-
 .friendly .cart {
     font-size: 1.6em;
+}
+
+.friendly .cart-item .delete-button {
+    font-size: 25px;
 }
 
 .friendly .cart button#checkout-button {
