@@ -81,6 +81,8 @@ function goToMenuSelection() {
     document.getElementById('menu-selection-screen').style.display = 'block';
 }
 
+let currentSlideIndex = 0; // 현재 슬라이드 인덱스
+
 function displayCarouselItems() {
     const carouselItems = document.querySelector('.carousel-items');
     carouselItems.innerHTML = '';
@@ -100,6 +102,7 @@ function displayCarouselItems() {
 
     // 캐러셀 컨테이너를 보이게 설정
     document.getElementById('carousel-container').style.display = 'block';
+    updateCarouselPosition(); // 슬라이드 초기 위치 업데이트
 }
 
 function displayMenuItems() {
@@ -133,6 +136,7 @@ function displayMenuItems() {
         });
         carouselContainer.style.display = 'block';
         menuContainer.style.display = 'none';
+        updateCarouselPosition(); // 슬라이드 초기 위치 업데이트
     } else {
         // 기본 주문 모드일 때 리스트 형태로 아이템 추가
         filteredItems.forEach(item => {
@@ -154,13 +158,14 @@ function displayMenuItems() {
 function updateCarouselPosition() {
     const carouselItems = document.querySelectorAll('.carousel-item');
     const containerWidth = document.querySelector('.carousel-wrapper').offsetWidth;
-    const itemWidth = containerWidth / 5; // 화면에 5개의 아이템이 보이도록 설정
-    const position = -currentIndex * itemWidth + (containerWidth / 2 - itemWidth / 2);
+    const itemWidth = containerWidth / 3; // 화면에 3개의 아이템이 보이도록 설정
+    const position = -currentSlideIndex * itemWidth;
 
-    document.querySelector('.carousel-wrapper').style.transform = `translateX(${position}px)`;
+    // 슬라이드 위치 업데이트
+    document.querySelector('.carousel-items').style.transform = `translateX(${position}px)`;
 
     carouselItems.forEach((item, index) => {
-        if (index === currentIndex) {
+        if (index === currentSlideIndex) {
             item.classList.add('active'); // 중앙에 있는 메뉴를 크게 표시
             item.style.zIndex = 10; // 중앙의 메뉴를 앞에 보이도록 설정
         } else {
@@ -170,21 +175,24 @@ function updateCarouselPosition() {
     });
 }
 
+
+// 이벤트 핸들러 설정
 document.querySelector('.carousel-btn.next').addEventListener('click', () => {
     const totalItems = document.querySelectorAll('.carousel-item').length;
-    if (currentIndex < totalItems - 1) {
-        currentIndex++;
+    if (currentSlideIndex < totalItems - 1) {
+        currentSlideIndex++;
         updateCarouselPosition();
     }
 });
 
 document.querySelector('.carousel-btn.prev').addEventListener('click', () => {
-    if (currentIndex > 0) {
-        currentIndex--;
+    if (currentSlideIndex > 0) {
+        currentSlideIndex--;
         updateCarouselPosition();
     }
 });
 
+// 창 로드 시 위치 업데이트
 window.addEventListener('load', () => {
     updateCarouselPosition();
     window.addEventListener('resize', updateCarouselPosition); // 창 크기 변경 시 위치 조정
@@ -200,6 +208,7 @@ function selectMenu(menuType) {
         orderScreen.classList.add('friendly');
         startScreen.classList.add('friendly');
         voiceButton.style.display = 'block'; // 음성 인식 버튼 표시
+        startVoiceRecognition();  // 음성 인식 시작
 
     } else if (menuType === 'basic') {
         isFriendlyMode = false;  // 기본 주문 모드 활성화
@@ -215,6 +224,10 @@ function selectMenu(menuType) {
             button.style.fontSize = '';
             button.style.margin = '';
         });
+
+        if (recognition) {
+            recognition.stop(); // 음성 인식 중지
+        }
     }
     document.getElementById('menu-selection-screen').style.display = 'none';
     startScreen.style.display = 'block';
@@ -696,3 +709,24 @@ function resetOrder() {
         recognition.stop();
     }
 }
+
+function findMenuItemByName(name) {
+    return menuItems.find(item => item.name.includes(name));
+}
+
+function showOptionsForItem(itemName) {
+    const menuItem = findMenuItemByName(itemName);
+    if (menuItem) {
+        showOptionsScreen(menuItem);
+    } else {
+        console.error('메뉴 항목을 찾을 수 없습니다:', itemName);
+    }
+}
+
+// 주문 완료 후 음성 인식을 다시 시작
+function restartVoiceRecognitionIfNecessary() {
+    if (isFriendlyMode) {
+        startVoiceRecognition();  // 간편 주문 모드에서만 음성 인식 다시 시작
+    }
+}
+

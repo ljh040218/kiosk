@@ -7,6 +7,13 @@ body, html {
     background-color: #8acaa4; /* 노랑색 #FAF3C0에서 변경 */
 }
 
+#start-screen {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 #initial-screen {
     display: flex;
     justify-content: center;
@@ -43,14 +50,13 @@ h1, h2 {
 }
 
 .home-button {
-    padding: 10px 20px;
-    font-size: 16px;
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 2.3em;
     cursor: pointer;
-    background-color: white;
-    color: #4CAF50;
-    border: 2px solid #4CAF50;
-    border-radius: 5px;
-    margin-left: 10px;
+    display: flex;
+    align-items: center;
 }
 
 .content {
@@ -73,7 +79,7 @@ button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    background-color: #4CAF50;
+    background-color: #2e6631;
     color: white;
     border: none;
     border-radius: 5px;
@@ -90,6 +96,7 @@ p {
 }
 
 /* 주문 방식 선택, 포장 매장 선택하는 부분 중앙 정렬 */
+
 .center-content {
     display: flex;
     justify-content: center;
@@ -100,14 +107,19 @@ p {
     text-align: center;
   }
 
-/* 버튼 세로 정렬로 수정 */
+  .order-title {
+    font-size: 2.5em; /* 글자 크기 조정 */
+    margin-top: 10px; /* 화면 상단에서의 간격 조정 */
+    text-align: center;
+}
+
 .order-button {
     display: block; 
-    margin-bottom: 20px; 
+    margin-bottom: 30px; 
     width: 200px;
-    padding: 20px;
-    font-size: 18px;
-    background-color: #4CAF50;
+    padding: 30px;
+    font-size: 24px;
+    background-color: #2e6631;
     color: white;
     border: none;
     cursor: pointer;
@@ -116,9 +128,9 @@ p {
     margin-left: auto; 
     margin-right: auto; 
 }
-  
+
 .order-button:hover {
-    background-color: #45a049;
+    background-color: #2e6631;
 }
   
 .menu-description {
@@ -133,7 +145,7 @@ p {
     padding: 20px;
     margin: 10px;
     font-size: 18px;
-    background-color: #4CAF50;
+    background-color: #2e6631;
     color: white;
     border: none;
     cursor: pointer;
@@ -142,13 +154,13 @@ p {
 }
 
 .menu-button:hover, .cart button:hover {
-    background-color: #45a049;
+    background-color: #2e6631;
 }
 
 .menu-button.active {
     background-color: white;
     color: black;
-    border: 2px solid #4CAF50;
+    border: 2px solid #2e6631;
 }
 
 .menu-items p {
@@ -167,7 +179,7 @@ p {
     padding: 10px;
     margin: 5px;
     font-size: 16px;
-    background-color: #4CAF50;
+    background-color: #2e6631;
     color: white;
     border: none;
     cursor: pointer;
@@ -175,13 +187,13 @@ p {
 }
 
 .subcategory-button:hover {
-    background-color: #45a049;
+    background-color: #2e6631;
 }
 
 .subcategory-button.active {
     background-color: white;
     color: black;
-    border: 2px solid #4CAF50;
+    border: 2px solid #2e6631;
 }
 
 
@@ -230,7 +242,7 @@ p {
     width: 80%;
     padding: 10px;
     margin-top: 10px;
-    background-color: #4CAF50;
+    background-color: #2e6631;
     color: white;
     border: none;
     cursor: pointer;
@@ -238,7 +250,7 @@ p {
 }
 
 .menu-item button:hover {
-    background-color: #45a049;
+    background-color: #2e6631;
 }
 
 #options-selection-screen {
@@ -289,7 +301,7 @@ p {
     padding: 20px;
     margin: 10px;
     font-size: 1.5em;
-    background-color: #4CAF50;
+    background-color: #2e6631;
     color: white;
     border: none;
     cursor: pointer;
@@ -297,7 +309,7 @@ p {
 }
 
 .option-button:hover {
-    background-color: #45a049;
+    background-color:#2e6631;
 }
 
 .option-button.cancel-button {
@@ -379,7 +391,7 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
 }
 
 .quantity-control .increase-button:hover {
-    background: #45a049; 
+    background: #2e6631; 
     color: white;
 }
 
@@ -401,6 +413,22 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     padding: 50px 0; 
     margin-top: 60px;
+    border-radius: 15px; /* 둥근 직사각형 모양을 위한 속성 */
+    
+}
+.cart h2 {
+    display: flex; /* 아이콘과 텍스트를 가로로 정렬 */
+    align-items: center; /* 세로 가운데 정렬 */
+    text-align: left; /* 왼쪽 정렬 */
+    margin: 0; /* 상하 좌우 여백 제거 */
+    padding: 10px 20px; /* 패딩을 추가하여 내부 여백 조정 */
+    font-size: 1.5em; /* 텍스트 크기 조정 */
+}
+
+
+.cart h2 i {
+    margin-right: 10px; /* 아이콘과 텍스트 사이 여백 */
+    font-size: 0.9em; /* 아이콘 크기 조정 */
 }
 
 .cart-item {
@@ -455,7 +483,7 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
     margin: 10px auto; 
     display: block; 
     font-size: 18px;
-    background-color: #4CAF50;
+    background-color: #2e6631;
     color: white;
     border: none;
     cursor: pointer;
@@ -530,7 +558,7 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
     padding: 20px;
     margin: 10px;
     font-size: 1.5em;
-    background-color: #4CAF50;
+    background-color: #2e6631;
     color: white;
     border: none;
     cursor: pointer;
@@ -538,7 +566,7 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
 }
 
 .modal-content button:hover {
-    background-color: #45a049;
+    background-color: #2e6631;
 }
 
 .modal-content .cancel-button {
@@ -633,7 +661,7 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
     width: 80%;
     padding: 40px;
     font-size: 2em;
-    background-color: #4CAF50;
+    background-color: #2e6631;
     color: white;
     border: none;
     cursor: pointer;
@@ -651,7 +679,7 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
 }
 
 .payment-button:hover {
-    background-color: #45a049;
+    background-color: #2e6631;
 }
 
 
@@ -672,7 +700,7 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
 }
 
 .friendly #start-screen .order-button {
-    background-color: #4CAF50;
+    background-color: #2e6631;
     color: white;
     border: none;
     cursor: pointer;
@@ -686,7 +714,7 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
 }
 
 .friendly #start-screen .order-button:hover {
-    background-color: #45a049;
+    background-color: #2e6631;
 }
 
 .friendly #category-buttons .menu-button {
@@ -764,7 +792,7 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
     width: auto;
     max-width: 100%;
     margin-top: 20px;
-    background-color: #4CAF50; 
+    background-color:#2e6631; 
     color: white; 
     border: none; 
     cursor: pointer; 
@@ -772,7 +800,7 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
 }
 
 .friendly .cart button#checkout-button:hover {
-    background-color: #45a049; 
+    background-color: #2e6631; 
 }
 
 .friendly .cart h2, 
@@ -807,74 +835,102 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
     margin: 20px auto;
 }
 
+.friendly #start-screen .order-button {
+    background-color: #2e6631;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 300px;
+    padding: 30px;
+    font-size: 2em;
+    margin: 20px auto;
+}
+
+.friendly #start-screen .order-button:hover {
+    background-color: #2e6631;
+}
+
 #carousel-container {
     position: relative;
     width: 100%;
-    max-width: 1200px; /* 전체 너비를 조정 */
+    max-width: 1200px;
     margin: 40px auto;
-    overflow: visible;
+    background-color: #e0e0e0; /* 회색 배경 */
+    padding: 20px;
+    overflow: hidden; /* 회색 배경의 크기를 조정 */
 }
 
 .carousel-wrapper {
     display: flex;
-    transition: transform 0.2s ease;
-    flex: 1;
+    transition: transform 0.3s ease; /* 슬라이드 이동 시 부드러운 전환 */
     justify-content: center;
-    padding: 0 60px; /* 좌우 여백을 추가 */
+    overflow: hidden;
+    position: relative;
+    width: 100%; /* 회색 배경의 전체 너비 */
 }
 
 .carousel-items {
     display: flex;
     flex-wrap: nowrap;
-    transition: transform 0.2s ease;
-    width: 100%;
+    transition: transform 0.3s ease; /* 슬라이드 이동 시 부드러운 전환 */
+    width: 100%; /* 전체 너비를 사용하여 회색 배경 내에서 이동 */
 }
 
 .carousel-item {
-    flex: 0 0 20%; /* 각 아이템이 가로로 5개씩 보이도록 설정 */
-    max-width: 20%;
+    flex: 0 0 33.3333%; /* 각 아이템이 가로로 3개씩 보이도록 설정 */
+    max-width: 33.3333%;
     box-sizing: border-box;
     padding: 10px;
     text-align: center;
-    transition: transform 0.2s ease, opacity 0.2s ease;
     position: relative;
-    overflow: visible;
+    background-color: white; /* 흰색 배경 */
+    margin: 0 10px; /* 아이템 간의 간격 추가 */
+    border-radius: 10px; /* 박스의 모서리를 둥글게 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    transition: transform 0.3s ease; /* 부드러운 확대 효과 */
 }
 
 .carousel-item img {
-    width: 80%; /* 이미지 크기를 확대 */
-    height: auto;
-    object-fit: contain;
+    width: 100%; /* 이미지 크기를 최대화 */
+    height: 500px; /* 고정된 높이 */
+    object-fit: cover; /* 이미지의 비율 유지 */
+    border-radius: 5px; /* 이미지의 모서리를 둥글게 */
 }
 
 .carousel-item h3 {
-    font-size: 1.8em; /* 글씨 크기 확대 */
+    font-size: 2em; /* 글씨 크기 확대 */
     margin: 10px 0;
 }
 
 .carousel-item p {
-    font-size: 1.5em; /* 가격 텍스트 크기 확대 */
+    font-size: 2em; /* 가격 텍스트 크기 확대 */
     margin: 5px 0;
 }
 
 .carousel-item button {
-    font-size: 1.5em; /* 버튼 텍스트 크기 확대 */
-    padding: 15px;
+    font-size: 2em; /* 버튼 텍스트 크기 확대 */
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
-.carousel-item.active {
-    transform: scale(1.7); /* 중앙 메뉴 크기를 더 크게 확대 */
-    z-index: 10;
+.carousel-item button:hover {
+    background-color: #45a049;
 }
 
 .carousel-btn {
-    width: 60px; /* 버튼 크기 확대 */
-    height: 60px;
+    width: 50px;
+    height: 50px;
     background-color: #c3c3c3;
     border-radius: 50%;
     border: none;
     color: white;
-    font-size: 2.5rem; /* 버튼 아이콘 크기 확대 */
+    font-size: 2rem;
     cursor: pointer;
     opacity: 0.8;
     display: flex;
@@ -888,14 +944,31 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
 }
 
 .carousel-btn.prev {
-    left: 0; /* 왼쪽 끝에 위치 */
+    left: 10px; /* 회색 배경의 왼쪽 끝에 위치 */
 }
 
 .carousel-btn.next {
-    right: 0; /* 오른쪽 끝에 위치 */
+    right: 10px; /* 회색 배경의 오른쪽 끝에 위치 */
 }
 
 .carousel-btn:hover {
     background-color: rgba(250, 250, 250, 0.5);
     transform: scale(1.1); /* Hover 시 크기 약간 증가 */
 }
+
+/* 추천 메뉴 영역 스타일 */
+#seasonal-recommendation, #voice-recommendation {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#seasonal-recommendation h1, #voice-recommendation h1 {
+    font-size: 2em;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
