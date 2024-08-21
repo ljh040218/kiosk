@@ -67,21 +67,3 @@ function processVoiceCommand(command) {
         }
 }
 }
-
-function getSeasonalMenu() {
-    const month = new Date().getMonth() + 1;  // JavaScript의 getMonth()는 0부터 11까지 반환하므로 +1을 해서 1부터 12로 조정합니다.
-
-    if (month >= 3 && month <= 5) {
-        // 봄: 3월부터 5월
-        return ["딸기 라떼", "연유 라떼", "왕할메가커피"];
-    } else if (month >= 6 && month <= 8) {
-        // 여름: 6월부터 8월
-        return ["메가 에이드", "청포도 에이드", "아이스 아메리카노"];
-    } else if (month >= 9 && month <= 11) {
-        // 가을: 9월부터 11월
-        return [ "핫 초코", "핫 아메리카노", "카푸치노"];
-    } else {
-        // 겨울: 12월부터 2월
-        return ["고구마 라떼", "핫 초코", "곡물 라떼"];
-    }
-}

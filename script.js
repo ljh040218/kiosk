@@ -326,21 +326,31 @@ function displayMenuItems() {
         filteredItems.forEach(item => {
             const menuItem = document.createElement('div');
             menuItem.classList.add('carousel-item');
+
+            // 간편 모드일 때 메뉴 이름 변환
+            let convertedName = item.name;
+            if (convertedName.startsWith("ICE")) {
+                convertedName = convertedName.replace("ICE", "차가운");
+            } else if (convertedName.startsWith("HOT")) {
+                convertedName = convertedName.replace("HOT", "뜨거운");
+            }
+
             menuItem.innerHTML = `
-                <img src="${item.img}" alt="${item.name}">
-                <h3>${item.name}</h3>
+                <img src="${item.img}" alt="${convertedName}">
+                <h3>${convertedName}</h3>
                 <p>${item.price} 원</p>
-                <button onclick="addToCart('${item.name}', ${item.price})">담기</button>
+                <button onclick="addToCart('${convertedName}', ${item.price})">담기</button>
             `;
             carouselItems.appendChild(menuItem);
         });
         carouselContainer.style.display = 'block';
         menuContainer.style.display = 'none';
-        
+
         // 간편 주문 모드 스타일 적용
         orderTitle.style.textAlign = 'left';
         orderTitle.style.marginLeft = '20px';
 
+        updateCarouselPosition(); // 슬라이드 초기 위치 업데이트
     } else {
         // 기본 주문 모드일 때 리스트 형태로 아이템 추가
         filteredItems.forEach(item => {
@@ -356,19 +366,20 @@ function displayMenuItems() {
         });
         carouselContainer.style.display = 'none';
         menuContainer.style.display = 'flex';
-        
+
         // 기본 주문 모드 스타일 복원
         orderTitle.style.textAlign = 'center';
         orderTitle.style.marginLeft = '0';
     }
+}
 
-    // 페이지 번호 갱신
-    const pageNumberElement = document.getElementById('page-number');
-    const paginationElement = document.getElementById('pagination');
-    if (pageNumberElement && paginationElement) {
-        pageNumberElement.innerText = `${currentPage} / ${Math.ceil(filteredItems.length / (isFriendlyMode ? itemsPerPageFriendly : itemsPerPageDefault))}`;
-        paginationElement.style.display = filteredItems.length > (isFriendlyMode ? itemsPerPageFriendly : itemsPerPageDefault) ? 'block' : 'none';
+function convertMenuName(name) {
+    if (name.startsWith("ICE")) {
+        return name.replace("ICE", "차가운");
+    } else if (name.startsWith("HOT")) {
+        return name.replace("HOT", "뜨거운");
     }
+    return name;
 }
 
 function nextPage() {
@@ -729,4 +740,3 @@ function restartVoiceRecognitionIfNecessary() {
         startVoiceRecognition();  // 간편 주문 모드에서만 음성 인식 다시 시작
     }
 }
-

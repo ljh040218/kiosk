@@ -956,9 +956,10 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
     transform: scale(1.1); /* Hover 시 크기 약간 증가 */
 }
 
-/* 추천 메뉴 영역 스타일 */
+/* 추천 메뉴 스타일 */
 #seasonal-recommendation, #voice-recommendation {
-    margin-top: 20px;
+    display: block;  /* 요소가 화면에 표시되도록 보장 */
+    visibility: visible;  /* 요소가 보이도록 보장 */
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 10px;
@@ -972,3 +973,76 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
     margin-bottom: 20px;
 }
 
+#seasonal-menu-page {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    padding-top: 60px;
+}
+
+.seasonal-menu-container {
+    background-color: #f9f9f9;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+}
+
+.seasonal-menu-container h1 {
+    font-size: 2.5em;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+.seasonal-menu-list {
+    font-size: 1.5em;
+    text-align: left;
+}
+
+.seasonal-menu-list p {
+    margin: 10px 0;
+}
+
+.seasonal-menu-container button {
+    font-size: 1.5em;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.seasonal-menu-container button:hover {
+    background-color: #45a049;
+}
+
+.seasonal-menu-list p {
+    margin: 10px 0;
+}
+
+.seasonal-menu-container button {
+    font-size: 1.5em;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.seasonal-menu-container button:hover {
+    background-color: #45a049;
+}

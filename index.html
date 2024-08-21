@@ -23,8 +23,8 @@
     
     <div id="menu-selection-screen" class="center-content" style="display: none;">
         <h1>주문 방식 선택</h1>
-        <button class="order-button" onclick="selectMenu('basic')">기본 주문</button>
-        <button class="order-button" onclick="selectMenu('friendly')">간편 주문</button>
+        <button id="friendly-order-button" class="order-button" onclick="selectMenu('friendly')">간편 주문</button>
+        <button id="basic-order-button" class="order-button" onclick="selectMenu('basic')">기본 주문</button>
         <p class="menu-description">간편 주문은 음성 주문으로 쉽게 주문 할 수 있습니다!</p>
     </div>
 
@@ -69,6 +69,23 @@
             <button id="checkout-button" onclick="confirmOrder()" style="display: none;">결제하기</button>
         </div>
         
+          <!-- 계절별 추천 메뉴 페이지 -->
+          <div id="seasonal-menu-page" class="full-screen" style="display: none;">
+            <div class="container">
+                <button class="close" onclick="closeSeasonalMenu()">×</button> <!-- X 버튼으로 수정 -->
+                <h1>계절별 추천 메뉴</h1>
+                <div id="seasonal-menu-list">
+                    <!-- 여기서 계절별 메뉴를 표시할 예정 -->
+                    <!-- 메뉴 아이템들 -->
+                    <p>봄: 딸기 라떼, 연유 라떼, 왕할메가커피</p>
+                    <p>여름: 메가 에이드, 청포도 에이드, 아이스 아메리카노</p>
+                    <p>가을: 핫 초코, 핫 아메리카노, 카푸치노</p>
+                    <p>겨울: 고구마 라떼, 핫 초코, 곡물 라떼</p>
+                </div>
+             <button onclick="goToHome()">홈으로 돌아가기</button>
+            </div>
+        </div>
+
         <!-- 옵션 선택 섹션 -->
         <div id="options-selection-screen" class="options" style="display: none;">
             <div class="options-header">
@@ -177,6 +194,5 @@
     </div>
     <div id="blur-background"></div>
     <script src="script.js"></script>
-    <script src="speech.js"></script>
 </body>
 </html>
