@@ -328,18 +328,18 @@ function displayMenuItems() {
             menuItem.classList.add('carousel-item');
 
             // 간편 모드일 때 메뉴 이름 변환
-            let convertedName = item.name;
-            if (convertedName.startsWith("ICE")) {
-                convertedName = convertedName.replace("ICE", "차가운");
-            } else if (convertedName.startsWith("HOT")) {
-                convertedName = convertedName.replace("HOT", "뜨거운");
+            let displayName = item.name;
+            if (displayName.startsWith("ICE")) {
+                displayName = displayName.replace("ICE", "차가운");
+            } else if (displayName.startsWith("HOT")) {
+                displayName = displayName.replace("HOT", "뜨거운");
             }
 
             menuItem.innerHTML = `
-                <img src="${item.img}" alt="${convertedName}">
-                <h3>${convertedName}</h3>
+                <img src="${item.img}" alt="${displayName}">
+                <h3>${displayName}</h3>
                 <p>${item.price} 원</p>
-                <button onclick="addToCart('${convertedName}', ${item.price})">담기</button>
+                <button onclick="addToCart('${item.name}', ${item.price})">담기</button>
             `;
             carouselItems.appendChild(menuItem);
         });
@@ -400,7 +400,21 @@ function prevPage() {
 }
 
 function addToCart(name, price) {
-    const menuItem = menuItems.find(item => item.name === name);
+    // 이름이 변환된 상태에서 원래 이름을 찾기 위한 로직
+    const originalName = menuItems.find(item => {
+        let convertedName = item.name;
+        if (isFriendlyMode) {
+            if (convertedName.startsWith("ICE")) {
+                convertedName = convertedName.replace("ICE", "차가운");
+            } else if (convertedName.startsWith("HOT")) {
+                convertedName = convertedName.replace("HOT", "뜨거운");
+            }
+        }
+        return convertedName === name;
+    })?.name;
+
+    const menuItem = menuItems.find(item => item.name === originalName);
+
     if (menuItem) {
         showOptionsScreen(menuItem);
     } else {
@@ -738,5 +752,59 @@ function showOptionsForItem(itemName) {
 function restartVoiceRecognitionIfNecessary() {
     if (isFriendlyMode) {
         startVoiceRecognition();  // 간편 주문 모드에서만 음성 인식 다시 시작
+    }
+}
+
+function startVoiceRecognition() {
+    navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(stream => {
+            const mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.start();
+
+            const audioChunks = [];
+            mediaRecorder.addEventListener("dataavailable", event => {
+                audioChunks.push(event.data);
+            });
+
+            mediaRecorder.addEventListener("stop", () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                sendAudioToServer(audioBlob);
+            });
+
+            setTimeout(() => {
+                mediaRecorder.stop();
+            }, 5000);  // 5초 동안 녹음
+        });
+}
+
+function sendAudioToServer(audioBlob) {
+    const formData = new FormData();
+    formData.append('audio', audioBlob);
+
+    fetch('/process_audio', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Recognized Action:', data.response);
+        handleServerResponse(data.response);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+function handleServerResponse(responseAction) {
+    if (responseAction === 'show_takeout_option' || responseAction === 'show_in_store_option') {
+        document.getElementById('start-screen').style.display = 'none';
+        document.getElementById('order-screen').style.display = 'block';
+        showMenu('coffee', '에스프레소');
+    } else if (responseAction.startsWith('select_menu_item|')) {
+        const menuItemName = responseAction.split('|')[1];
+        const menuItem = findMenuItemByName(menuItemName);
+        showOptionsScreen(menuItem);
+    } else if (responseAction === 'unrecognized_command') {
+        alert('명령을 인식하지 못했습니다. 다시 시도해주세요.');
     }
 }
