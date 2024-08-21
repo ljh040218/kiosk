@@ -59,6 +59,41 @@
         <div id="menu" class="menu">
             <!-- 메뉴 아이템 -->
         </div>
+
+        <!-- 새로운 창 (추천 메뉴) -->
+        <div id="recommendation-popup" class="popup">
+            <h2>추천 메뉴</h2>
+            <div class="recommended-menu">
+            <!-- 추천 메뉴 1 -->
+            <div class="menu-item">
+                <img src="images/31.png" alt="라임모히또">
+                <div class="menu-info">
+                    <h3>라임모히또</h3>
+                    <p>₩3800</p>
+                    <button onclick="addToCart('라임모히또', 3800)">담기</button>
+                </div>
+                </div>
+                <!-- 추천 메뉴 2 -->
+                <div class="menu-item">
+                <img src="images/42.png" alt="ICE 흑당버블 밀크티라떼">
+                <div class="menu-info">
+                    <h3>차가운 흑당버블 밀크티라떼</h3>
+                    <p>₩3800</p>
+                    <button onclick="addToCart('ICE 흑당버블 밀크티라떼', 3800)">담기</button>
+                </div>
+                </div>
+                <!-- 추천 메뉴 3 -->
+                <div class="menu-item">
+                <img src="images/34.png" alt="ICE 딸기라떼">
+                <div class="menu-info">
+                    <h3>ICE 딸기라떼</h3>
+                    <p>₩3700</p>
+                    <button onclick="addToCart('ICE 딸기라떼', 3700)">담기</button>
+                </div>
+                </div>
+            </div>
+            <button class="close-button" onclick="closeRecommendationPopup()">X</button>
+            </div>
         
         <div class="cart">
             <h2>장바구니</h2>

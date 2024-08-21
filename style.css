@@ -956,93 +956,100 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
     transform: scale(1.1); /* Hover 시 크기 약간 증가 */
 }
 
-/* 추천 메뉴 스타일 */
-#seasonal-recommendation, #voice-recommendation {
-    display: block;  /* 요소가 화면에 표시되도록 보장 */
-    visibility: visible;  /* 요소가 보이도록 보장 */
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-#seasonal-recommendation h1, #voice-recommendation h1 {
-    font-size: 2em;
-    color: #4CAF50;
-    margin-bottom: 20px;
-}
-
-#seasonal-menu-page {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(5px);
-    padding-top: 60px;
-}
-
-.seasonal-menu-container {
-    background-color: #f9f9f9;
-    margin: auto;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+#recommendation-popup {
+    display: none; /* 기본적으로 숨김 */
+    position: absolute;
+    top: 60%; /* 하단 부분으로 이동 */
+    left: 50%;
+    transform: translate(-50%, -60%);
     width: 80%;
-    max-width: 800px;
+    max-width: 800px; /* 팝업의 최대 너비 설정 */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* 다른 요소들보다 위에 위치하도록 */
+}
+
+/* 추천 메뉴 제목 스타일 */
+#recommendation-popup h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #333;
+    text-align: center; /* 제목을 중앙 정렬 */
+}
+
+/* 추천 메뉴들을 가로로 나열하고 중앙에 정렬 */
+#recommendation-popup .recommended-menu {
+    display: flex;
+    justify-content: center; /* 가로로 중앙 정렬 */
+    gap: 20px; /* 메뉴 아이템 간의 간격 */
+    flex-wrap: wrap; /* 화면에 맞게 줄 바꿈 */
+}
+
+/* 각 메뉴 아이템 스타일 */
+#recommendation-popup .menu-item {
     text-align: center;
+    width: 160px; /* 메뉴 아이템의 너비 설정 */
 }
 
-.seasonal-menu-container h1 {
-    font-size: 2.5em;
-    color: #4CAF50;
-    margin-bottom: 20px;
+/* 메뉴 이미지 스타일 */
+#recommendation-popup .menu-item img {
+    width: 120px; /* 이미지의 너비 설정 */
+    height: 150px; /* 이미지의 높이 설정 */
+    object-fit: cover; /* 이미지 비율 유지 */
+    border-radius: 8px;
 }
 
-.seasonal-menu-list {
-    font-size: 1.5em;
-    text-align: left;
+/* 메뉴 정보 스타일 */
+#recommendation-popup .menu-info {
+    margin-top: 10px;
 }
 
-.seasonal-menu-list p {
-    margin: 10px 0;
+#recommendation-popup .menu-info h3 {
+    font-size: 16px;
+    margin: 10px 0 5px;
 }
 
-.seasonal-menu-container button {
-    font-size: 1.5em;
-    padding: 10px 20px;
+#recommendation-popup .menu-info p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+/* 담기 버튼 스타일 */
+#recommendation-popup .menu-info button {
+    padding: 10px 20px; /* 버튼의 패딩 설정 */
     background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    width: 100%; /* 버튼의 너비를 메뉴 아이템의 너비와 일치시킴 */
+    max-width: 80px; /* 버튼의 최대 너비 설정 */
+    box-sizing: border-box; /* 패딩과 테두리를 너비에 포함시킴 */
 }
 
-.seasonal-menu-container button:hover {
-    background-color: #45a049;
-}
-
-.seasonal-menu-list p {
-    margin: 10px 0;
-}
-
-.seasonal-menu-container button {
-    font-size: 1.5em;
-    padding: 10px 20px;
+#recommendation-popup .menu-info button:hover {
     background-color: #4CAF50;
-    color: white;
+}
+
+/* 닫기 버튼 스타일 */
+#recommendation-popup .close-button {
+    display: block;
+    margin: 20px auto 0; /* 중앙 정렬 및 상단 마진 설정 */
+    padding: 10px 20px;
+    background-color: #0056b3;
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    font-size: 16px;
+    transition: background-color 0.3s;
 }
 
-.seasonal-menu-container button:hover {
-    background-color: #45a049;
+#recommendation-popup .close-button:hover {
+    background-color: #0056b3;
 }

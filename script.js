@@ -805,6 +805,20 @@ function handleServerResponse(responseAction) {
         const menuItem = findMenuItemByName(menuItemName);
         showOptionsScreen(menuItem);
     } else if (responseAction === 'unrecognized_command') {
+        showRecommendationPopup();  // 음성을 인식하지 못한 경우 추천 메뉴 팝업 표시
+    } else {
         alert('명령을 인식하지 못했습니다. 다시 시도해주세요.');
     }
+}
+
+// 추천 메뉴 팝업을 보여주는 함수
+function showRecommendationPopup() {
+    const popup = document.getElementById('recommendation-popup');
+    popup.style.display = 'block';
+}
+
+// 추천 메뉴 팝업을 닫는 함수
+function closeRecommendationPopup() {
+    const popup = document.getElementById('recommendation-popup');
+    popup.style.display = 'none';
 }
