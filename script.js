@@ -225,10 +225,11 @@ function selectMenu(menuType) {
             button.style.margin = '';
         });
 
-        if (recognition) {
+        if (typeof recognition !== 'undefined' && recognition) {
             recognition.stop(); // 음성 인식 중지
         }
     }
+    
     document.getElementById('menu-selection-screen').style.display = 'none';
     startScreen.style.display = 'block';
 }
@@ -400,20 +401,19 @@ function prevPage() {
 }
 
 function addToCart(name, price) {
-    // 이름이 변환된 상태에서 원래 이름을 찾기 위한 로직
-    const originalName = menuItems.find(item => {
-        let convertedName = item.name;
-        if (isFriendlyMode) {
-            if (convertedName.startsWith("ICE")) {
-                convertedName = convertedName.replace("ICE", "차가운");
-            } else if (convertedName.startsWith("HOT")) {
-                convertedName = convertedName.replace("HOT", "뜨거운");
-            }
-        }
-        return convertedName === name;
-    })?.name;
+    let menuItem;
 
-    const menuItem = menuItems.find(item => item.name === originalName);
+    if (isFriendlyMode) {
+        // 간편 주문 모드에서 이름 변환
+        const transformedName = name.startsWith("차가운") ? name.replace("차가운", "ICE") :
+                                name.startsWith("뜨거운") ? name.replace("뜨거운", "HOT") : name;
+
+        // 변환된 이름으로 메뉴 찾기
+        menuItem = menuItems.find(item => item.name === transformedName);
+    } else {
+        // 기본 주문 모드에서는 변환 없이 그대로 사용
+        menuItem = menuItems.find(item => item.name === name);
+    }
 
     if (menuItem) {
         showOptionsScreen(menuItem);

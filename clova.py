@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify, render_template, send_from_directory
 from utils import clova_speech_recognition
+from difflib import get_close_matches
+
 import os
 
 app = Flask(__name__)
@@ -24,22 +26,87 @@ def process_audio():
     else:
         return jsonify({'error': 'Speech recognition failed'}), 500
 
+menuItems = [
+    {"name": "ICE 메가리카노", "category": "coffee", "subcategory": "에스프레소", "price": 3000, "img": "images/1.png"},
+    {"name": "ICE 아메리카노", "category": "coffee", "subcategory": "에스프레소", "price": 2000, "img": "images/2.png"},
+    {"name": "할메가커피", "category": "coffee", "subcategory": "에스프레소", "price": 1900, "img": "images/3.png"},
+    {"name": "왕할메가커피", "category": "coffee", "subcategory": "에스프레소", "price": 2900, "img": "images/4.png"},
+    {"name": "ICE 꿀아메리카노", "category": "coffee", "subcategory": "에스프레소", "price": 2700, "img": "images/5.png"},
+    {"name": "ICE 바닐라아메리카노", "category": "coffee", "subcategory": "에스프레소", "price": 2700, "img": "images/6.png"},
+    {"name": "ICE 헤이즐넛아메리카노", "category": "coffee", "subcategory": "에스프레소", "price": 2700, "img": "images/7.png"},
+    {"name": "HOT 아메리카노", "category": "coffee", "subcategory": "에스프레소", "price": 1500, "img": "images/8.png"},
+    {"name": "HOT 꿀아메리카노", "category": "coffee", "subcategory": "에스프레소", "price": 2700, "img": "images/8.png"},
+    {"name": "HOT 바닐라아메리카노", "category": "coffee", "subcategory": "에스프레소", "price": 2700, "img": "images/8.png"},
+    {"name": "HOT 헤이즐넛아메리카노", "category": "coffee", "subcategory": "에스프레소", "price": 2700, "img": "images/8.png"},
+    {"name": "ICE 카페라떼", "category": "coffee", "subcategory": "라떼", "price": 2900, "img": "images/12.png"},
+    {"name": "ICE 바닐라라떼", "category": "coffee", "subcategory": "라떼", "price": 3400, "img": "images/13.png"},
+    {"name": "ICE 연유라떼", "category": "coffee", "subcategory": "라떼", "price": 3900, "img": "images/13.png"},
+    {"name": "ICE 큐브라떼", "category": "coffee", "subcategory": "라떼", "price": 4200, "img": "images/15.png"},
+    {"name": "ICE 카페모카", "category": "coffee", "subcategory": "라떼", "price": 3900, "img": "images/16.png"},
+    {"name": "ICE 카푸치노", "category": "coffee", "subcategory": "라떼", "price": 2900, "img": "images/17.png"},
+    {"name": "HOT 카페라떼", "category": "coffee", "subcategory": "라떼", "price": 2900, "img": "images/18.png"},
+    {"name": "HOT 바닐라라떼", "category": "coffee", "subcategory": "라떼", "price": 3400, "img": "images/18.png"},
+    {"name": "HOT 연유라떼", "category": "coffee", "subcategory": "라떼", "price": 3900, "img": "images/20.png"},
+    {"name": "HOT 카푸치노", "category": "coffee", "subcategory": "라떼", "price": 2900, "img": "images/21.png"},
+    {"name": "HOT 카페모카", "category": "coffee", "subcategory": "라떼", "price": 3900, "img": "images/22.png"},
+    {"name": "HOT 카라멜마끼아또", "category": "coffee", "subcategory": "라떼", "price": 3700, "img": "images/23.png"},
+    {"name": "오이오이 라임 오히또", "category": "beverages", "subcategory": "에이드", "price": 3900, "img": "images/24.png"},
+    {"name": "메가에이드", "category": "beverages", "subcategory": "에이드", "price": 3900, "img": "images/25.png"},
+    {"name": "유니콘매직에이드(블루)", "category": "beverages", "subcategory": "에이드", "price": 3800, "img": "images/26.png"},
+    {"name": "레몬에이드", "category": "beverages", "subcategory": "에이드", "price": 3500, "img": "images/27.png"},
+    {"name": "블루레몬에이드", "category": "beverages", "subcategory": "에이드", "price": 3500, "img": "images/28.png"},
+    {"name": "자몽에이드", "category": "beverages", "subcategory": "에이드", "price": 3500, "img": "images/29.png"},
+    {"name": "청포도에이드", "category": "beverages", "subcategory": "에이드", "price": 3500, "img": "images/30.png"},
+    {"name": "라임모히또", "category": "beverages", "subcategory": "에이드", "price": 3800, "img": "images/31.png"},
+    {"name": "체리콕", "category": "beverages", "subcategory": "에이드", "price": 3300, "img": "images/32.png"},
+    {"name": "왕메가초코", "category": "beverages", "subcategory": "논-커피 라떼", "price": 4400, "img": "images/33.png"},
+    {"name": "ICE 딸기라떼", "category": "beverages", "subcategory": "논-커피 라떼", "price": 3700, "img": "images/34.png"},
+    {"name": "ICE 오레오초코라떼", "category": "beverages", "subcategory": "논-커피 라떼", "price": 3900, "img": "images/35.png"},
+    {"name": "ICE 곡물라떼", "category": "beverages", "subcategory": "논-커피 라떼", "price": 3300, "img": "images/36.png"},
+    {"name": "ICE 녹차라떼", "category": "beverages", "subcategory": "논-커피 라떼", "price": 3500, "img": "images/37.png"},
+    {"name": "ICE 토피넛라떼", "category": "beverages", "subcategory": "논-커피 라떼", "price": 3800, "img": "images/38.png"},
+    {"name": "ICE 고구마라떼", "category": "beverages", "subcategory": "논-커피 라떼", "price": 3500, "img": "images/39.png"},
+    {"name": "ICE 로얄밀크티라떼", "category": "beverages", "subcategory": "논-커피 라떼", "price": 3700, "img": "images/40.png"},
+    {"name": "ICE 흑당라떼", "category": "beverages", "subcategory": "논-커피 라떼", "price": 3300, "img": "images/41.png"},
+    {"name": "ICE 흑당밀크티라떼", "category": "beverages", "subcategory": "논-커피 라떼", "price": 3500, "img": "images/42.png"},
+    {"name": "ICE 흑당버블 밀크티라떼", "category": "beverages", "subcategory": "논-커피 라떼", "price": 3800, "img": "images/43.png"},
+    {"name": "핫초코", "category": "beverages", "subcategory": "논-커피 라떼", "price": 3500, "img": "images/44.png"},
+    {"name": "HOT 곡물라떼", "category": "beverages", "subcategory": "논-커피 라떼", "price": 3300, "img": "images/45.png"},
+    {"name": "HOT 녹차라떼", "category": "beverages", "subcategory": "논-커피 라떼", "price": 3500, "img": "images/46.png"},
+    {"name": "HOT 토피넛라떼", "category": "beverages", "subcategory": "논-커피 라떼", "price": 3800, "img": "images/47.png"},
+    {"name": "HOT 고구마라떼", "category": "beverages", "subcategory": "논-커피 라떼", "price": 3500, "img": "images/48.png"}
+]
+
+def find_best_match(command, menu_items):
+    # 전처리: 공백 제거 및 텍스트 정리
+    command = command.replace(" ", "").strip()
+    menu_names = [item['name'].replace(" ", "") for item in menu_items]
+    
+    # 유사도 비교: cutoff 값을 낮춰 유사한 항목 더 많이 찾기
+    best_matches = get_close_matches(command, menu_names, n=1, cutoff=0.4)
+    return best_matches[0] if best_matches else None
+
 def process_voice_command(command):
-    command = command.strip()
-    response_action = ""
-
-    if '포장' in command:
-        response_action = 'show_takeout_option'
+    # 다양한 표현을 통일하여 "ICE" 및 "HOT"으로 변환
+    command = command.replace("아주 차가운", "ICE").replace("차가운", "ICE").replace("아이스", "ICE")
+    command = command.replace("따뜻한", "HOT").replace("뜨거운", "HOT").replace("핫", "HOT")
+    
+    # 변환된 이름과 정확히 일치하는 메뉴 항목 찾기
+    for item in menuItems:
+        if command in item['name']:
+            return f'select_menu_item|{item["name"]}'
+    
+    best_match = find_best_match(command, menuItems) 
+    
+    if best_match:
+        return f'select_menu_item|{best_match}'
+    elif '포장' in command:
+        return 'show_takeout_option'
     elif '매장' in command:
-        response_action = 'show_in_store_option'
-    elif '아이스 아메리카노' in command:
-        response_action = 'select_menu_item|ICE 아메리카노'
-    elif '아이스 라떼' in command or '아이스 카페라떼' in command:
-        response_action = 'select_menu_item|ICE 카페라떼'
+        return 'show_in_store_option'
     else:
-        response_action = 'unrecognized_command'
+        return 'unrecognized_command'
 
-    return response_action
 
 if __name__ == '__main__':
     app.run(debug=True)
