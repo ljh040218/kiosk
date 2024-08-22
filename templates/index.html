@@ -58,9 +58,9 @@
             <!-- 메뉴 아이템 -->
         </div>
 
-        <!-- 새로운 창 (추천 메뉴) -->
-        <div id="recommendation-popup" class="popup">
-            <h2>추천 메뉴</h2>
+            <!-- 여기서 계절별 추천 메뉴 팝업 추가 -->
+            <div id="seasonal-recommendation-popup" class="popup" style="display: none;">
+            <h2>오늘 같은 날씨에 추천해요!</h2>
             <div class="recommended-menu">
             <!-- 추천 메뉴 1 -->
             <div class="menu-item">
@@ -90,8 +90,87 @@
                 </div>
                 </div>
             </div>
-            <button class="close-button" onclick="closeRecommendationPopup()">X</button>
+            <button class="close-button" onclick="closeSeasonalRecommendationPopup()">X</button>
+        </div>
+
+        <!-- 새로운 창 (추천 메뉴) -->
+        <div id="recommendation-popup" class="popup">
+            <h2>이런 메뉴는 어떠세요?</h2>
+            <div class="recommended-menu">
+            <!-- 추천 메뉴 1 -->
+            <div class="menu-item">
+                <img src="images/31.png" alt="라임모히또">
+                <div class="menu-info">
+                    <h3>라임모히또</h3>
+                    <p>₩3800</p>
+                    <button onclick="addToCart('라임모히또', 3800)">담기</button>
+                </div>
+                </div>
+                <!-- 추천 메뉴 2 -->
+                <div class="menu-item">
+                <img src="images/42.png" alt="ICE 흑당버블 밀크티라떼">
+                <div class="menu-info">
+                    <h3>차가운 흑당버블 밀크티라떼</h3>
+                    <p>₩3800</p>
+                    <button onclick="addToCart('ICE 흑당버블 밀크티라떼', 3800)">담기</button>
+                </div>
+                </div>
+                <!-- 추천 메뉴 3 -->
+                <div class="menu-item">
+                <img src="images/34.png" alt="ICE 딸기라떼">
+                <div class="menu-info">
+                    <h3>차가운 딸기라떼</h3>
+                    <p>₩3700</p>
+                    <button onclick="addToCart('ICE 딸기라떼', 3700)">담기</button>
+                </div>
+                </div>
             </div>
+            <button class="close-button" onclick="closeRecommendationPopup()">X</button>
+        </div>
+
+         <!-- 새로운 창 (추천 메뉴) -->
+         <div id="sweet-recommendation-popup" class="popup" style="display: none;">
+            <h2>달달한 메뉴를 찾으시나요?</h2>
+            <div class="recommended-menu">
+            <!-- 추천 메뉴 1 -->
+            <div class="menu-item">
+                <img src="images/31.png" alt="라임모히또">
+                <div class="menu-info">
+                    <h3>라임모히또</h3>
+                    <p>₩3800</p>
+                    <button onclick="addToCart('라임모히또', 3800)">담기</button>
+                </div>
+                </div>
+                <!-- 추천 메뉴 2 -->
+                <div class="menu-item">
+                <img src="images/42.png" alt="ICE 흑당버블 밀크티라떼">
+                <div class="menu-info">
+                    <h3>차가운 흑당버블 밀크티라떼</h3>
+                    <p>₩3800</p>
+                    <button onclick="addToCart('ICE 흑당버블 밀크티라떼', 3800)">담기</button>
+                </div>
+                </div>
+                <!-- 추천 메뉴 3 -->
+                <div class="menu-item">
+                <img src="images/34.png" alt="ICE 딸기라떼">
+                <div class="menu-info">
+                    <h3>ICE 딸기라떼</h3>
+                    <p>₩3700</p>
+                    <button onclick="addToCart('ICE 딸기라떼', 3700)">담기</button>
+                </div>
+                </div>
+                <!-- 추천 메뉴 3 -->
+                <div class="menu-item">
+                    <img src="images/34.png" alt="ICE 딸기라떼">
+                    <div class="menu-info">
+                        <h3>ICE 딸기라떼</h3>
+                        <p>₩3700</p>
+                        <button onclick="addToCart('ICE 딸기라떼', 3700)">담기</button>
+                    </div>
+                    </div>
+            </div>
+            <button class="close-button" onclick="closeSweetRecommendationPopup()">X</button>
+        </div>
         
         <div class="cart">
             <h2>장바구니</h2>
@@ -102,23 +181,6 @@
             <button id="checkout-button" onclick="confirmOrder()" style="display: none;">결제하기</button>
         </div>
         
-          <!-- 계절별 추천 메뉴 페이지 -->
-          <div id="seasonal-menu-page" class="full-screen" style="display: none;">
-            <div class="container">
-                <button class="close" onclick="closeSeasonalMenu()">×</button> <!-- X 버튼으로 수정 -->
-                <h1>계절별 추천 메뉴</h1>
-                <div id="seasonal-menu-list">
-                    <!-- 여기서 계절별 메뉴를 표시할 예정 -->
-                    <!-- 메뉴 아이템들 -->
-                    <p>봄: 딸기 라떼, 연유 라떼, 왕할메가커피</p>
-                    <p>여름: 메가 에이드, 청포도 에이드, 아이스 아메리카노</p>
-                    <p>가을: 핫 초코, 핫 아메리카노, 카푸치노</p>
-                    <p>겨울: 고구마 라떼, 핫 초코, 곡물 라떼</p>
-                </div>
-             <button onclick="goToHome()">홈으로 돌아가기</button>
-            </div>
-        </div>
-
         <!-- 옵션 선택 섹션 -->
         <div id="options-selection-screen" class="options" style="display: none;">
             <div class="options-header">
@@ -227,5 +289,6 @@
     </div>
     <div id="blur-background"></div>
     <script src="script.js"></script>
+    <script src="menu.js"></script>
 </body>
 </html>

@@ -69,8 +69,22 @@ const categories = {
 };
 
 function goToHome() {
-    window.location.href = 'index.html'; // 첫 화면으로 이동
- }
+    resetOrder(); // 초기 화면으로 돌아가기 위해 주문을 리셋합니다.
+
+    document.getElementById('menu-selection-screen').style.display = 'none';
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('order-screen').style.display = 'none';
+    document.getElementById('seasonal-menu-page').style.display = 'none';
+    document.getElementById('options-selection-screen').style.display = 'none';
+    document.getElementById('confirmation-modal').style.display = 'none';
+    document.getElementById('payment-modal').style.display = 'none';
+    document.getElementById('receipt-modal').style.display = 'none';
+    document.getElementById('completion-modal').style.display = 'none';
+    
+    
+ document.getElementById('initial-screen').style.display = 'flex';
+
+}
 
 function closeConfirmationModal() {
     document.getElementById('confirmation-modal').style.display = 'none';
@@ -806,8 +820,9 @@ function handleServerResponse(responseAction) {
         showOptionsScreen(menuItem);
     } else if (responseAction === 'unrecognized_command') {
         showRecommendationPopup();  // 음성을 인식하지 못한 경우 추천 메뉴 팝업 표시
-    } else {
-        alert('명령을 인식하지 못했습니다. 다시 시도해주세요.');
+    } else if (responseAction === 'show_sweet_recommendation') {
+        showSweetRecommendationPopup();}  // 달달한 메뉴 팝업 표시
+    else { alert('명령을 인식하지 못했습니다. 다시 시도해주세요.');
     }
 }
 

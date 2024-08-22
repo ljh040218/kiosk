@@ -34,7 +34,7 @@ body, html {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100vh; 
+    height: 100vh;
 }
 
 .full-screen-image {
@@ -1041,7 +1041,7 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
     display: block;
     margin: 20px auto 0; /* 중앙 정렬 및 상단 마진 설정 */
     padding: 10px 20px;
-    background-color: #0056b3;
+    background-color: #f44336;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -1051,5 +1051,57 @@ input[type="checkbox"].checkbox:checked, input[type="radio"].radio:checked {
 }
 
 #recommendation-popup .close-button:hover {
-    background-color: #0056b3;
+    background-color: #990000;
+}
+
+.popup .close-button {
+    display: block;
+    margin: 20px auto 0; /* 중앙 정렬 및 상단 마진 설정 */
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.popup .close-button:hover {
+    background-color: #990000;
+}
+
+.popup {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed; /* 스크롤해도 항상 화면 중앙에 위치 */
+    top: 50%; /* 화면 중앙에 위치 */
+    left: 50%;
+    transform: translate(-50%, -50%); /* 중앙 정렬 */
+    width: 80%;
+    max-width: 1800px; /* 팝업의 최대 너비 설정 */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* 다른 요소들보다 위에 위치하도록 */
+}
+
+.recommended-menu {
+    display: flex; /* 가로로 나열 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    gap: 20px; /* 메뉴 아이템 간의 간격 */
+    flex-wrap: nowrap; /* 줄바꿈 없이 한 줄로만 나열 */
+}
+
+.popup .menu-info button {
+    width: 100px; /* 버튼의 너비를 고정된 크기로 설정 */
+    padding: 10px 0; /* 패딩을 설정하여 버튼 내부 여백을 일정하게 */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    box-sizing: border-box; /* 패딩을 너비에 포함시킴 */
 }

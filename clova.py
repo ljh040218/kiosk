@@ -88,9 +88,13 @@ def find_best_match(command, menu_items):
 
 def process_voice_command(command):
     # 다양한 표현을 통일하여 "ICE" 및 "HOT"으로 변환
-    command = command.replace("아주 차가운", "ICE").replace("차가운", "ICE").replace("아이스", "ICE")
+    command = command.replace("아주 차가운", "ICE").replace("차가운", "ICE").replace("시원한", "ICE").replace("아이스", "ICE")
     command = command.replace("따뜻한", "HOT").replace("뜨거운", "HOT").replace("핫", "HOT")
     
+    # "달달한" 또는 "단" 단어가 포함된 경우 달달한 메뉴 추천
+    if "달달한" in command or "단" in command:
+        return 'show_sweet_recommendation'
+
     # 변환된 이름과 정확히 일치하는 메뉴 항목 찾기
     for item in menuItems:
         if command in item['name']:
@@ -106,7 +110,6 @@ def process_voice_command(command):
         return 'show_in_store_option'
     else:
         return 'unrecognized_command'
-
 
 if __name__ == '__main__':
     app.run(debug=True)
