@@ -397,23 +397,6 @@ function convertMenuName(name) {
     return name;
 }
 
-function nextPage() {
-    const isFriendly = document.getElementById('order-screen').classList.contains('friendly');
-    const itemsPerPage = isFriendly ? itemsPerPageFriendly : itemsPerPageDefault;
-    const filteredItems = menuItems.filter(item => item.category === selectedCategory && item.subcategory === selectedSubCategory);
-    if (currentPage * itemsPerPage < filteredItems.length) {
-        currentPage++;
-        displayMenuItems();
-    }
-}
-
-function prevPage() {
-    if (currentPage > 1) {
-        currentPage--;
-        displayMenuItems();
-    }
-}
-
 function addToCart(name, price) {
     let menuItem;
 

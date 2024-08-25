@@ -4,7 +4,7 @@ let hasPopupShown = false;
 // 10초 타이머
 function startSeasonalRecommendationTimer() {
     if (!hasPopupShown) { // 팝업이 표시되지 않았다면 타이머를 시작
-        seasonalRecommendationTimer = setTimeout(showSeasonalRecommendationPopup, 10000);
+        seasonalRecommendationTimer = setTimeout(showSeasonalRecommendationPopup, 20000);
     }
 }
 

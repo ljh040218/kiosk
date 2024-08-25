@@ -86,30 +86,59 @@ def find_best_match(command, menu_items):
     best_matches = get_close_matches(command, menu_names, n=1, cutoff=0.4)
     return best_matches[0] if best_matches else None
 
+def extract_location_command(command):
+    # 포장 또는 매장 관련 단어만 추출
+    if '포장' in command:
+        return '포장'
+    elif '매장' in command:
+        return '매장'
+
 def process_voice_command(command):
-    # 다양한 표현을 통일하여 "ICE" 및 "HOT"으로 변환
-    command = command.replace("아주 차가운", "ICE").replace("차가운", "ICE").replace("시원한", "ICE").replace("아이스", "ICE")
-    command = command.replace("따뜻한", "HOT").replace("뜨거운", "HOT").replace("핫", "HOT")
+    # 포장, 매장 명령어 우선 처리
+    location_command = extract_location_command(command)
+    if location_command == '포장':
+        return 'show_takeout_option'
+    elif location_command == '매장':
+        return 'show_in_store_option'
+
+    # 아아, 뜨아 특별 처리
+    command = command.replace("아아", "ICE 아메리카노").replace("뜨아", "HOT 아메리카노")
+
+    # 불필요한 단어 제거
+    filtered_command = filter_menu_related_words(command, menuItems)
     
-    # "달달한" 또는 "단" 단어가 포함된 경우 달달한 메뉴 추천
-    if "달달한" in command or "단" in command:
+    # 다양한 표현을 통일하여 ICE, HOT으로 변환
+    filtered_command = filtered_command.replace("아주 차가운", "ICE").replace("차가운", "ICE").replace("시원한", "ICE").replace("아이스", "ICE")
+    filtered_command = filtered_command.replace("따뜻한", "HOT").replace("뜨거운", "HOT").replace("핫", "HOT")
+
+
+    # 달달한 또는 단 단어가 포함된 경우 달달한 메뉴 추천
+    if "달달한" in filtered_command or "단" in filtered_command:
         return 'show_sweet_recommendation'
 
     # 변환된 이름과 정확히 일치하는 메뉴 항목 찾기
     for item in menuItems:
-        if command in item['name']:
+        if filtered_command in item['name']:
             return f'select_menu_item|{item["name"]}'
     
-    best_match = find_best_match(command, menuItems) 
-    
+    best_match = find_best_match(filtered_command, menuItems) 
+
     if best_match:
         return f'select_menu_item|{best_match}'
-    elif '포장' in command:
-        return 'show_takeout_option'
-    elif '매장' in command:
-        return 'show_in_store_option'
     else:
         return 'unrecognized_command'
+    
+def filter_menu_related_words(command, menu_items):
+    command_words = command.split()
+    menu_related_words = []
+
+    for word in command_words:
+        for item in menu_items:
+            if word in item['name']:
+                menu_related_words.append(word)
+                break
+    
+    return " ".join(menu_related_words)
 
 if __name__ == '__main__':
     app.run(debug=True)
