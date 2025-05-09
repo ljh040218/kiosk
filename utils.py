@@ -6,7 +6,7 @@ def clova_speech_recognition(audio_data):
     url = "https://naveropenapi.apigw.ntruss.com/recog/v1/stt"
     headers = {
         "X-NCP-APIGW-API-KEY-ID": "ct1yjvm22n",
-        "X-NCP-APIGW-API-KEY": "pd0zlyJZlUupWeXwXZrOgW5Sitq1oqNbzyLdD0ce",
+        "X-NCP-APIGW-API-KEY": "",
         "Content-Type": "application/octet-stream"
     }
 
